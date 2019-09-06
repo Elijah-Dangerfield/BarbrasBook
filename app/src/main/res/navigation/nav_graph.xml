@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.dangerfield.barbrasbook.view.NewsFragment"
+        android:name="com.dangerfield.barbrasbook.view.news.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/articleDetailFragment"
-        android:name="com.dangerfield.barbrasbook.ArticleDetailFragment"
+        android:name="com.dangerfield.barbrasbook.view.ArticleDetailFragment"
         android:label="fragment_article_detail"
         tools:layout="@layout/fragment_article_detail" />
 </navigation>

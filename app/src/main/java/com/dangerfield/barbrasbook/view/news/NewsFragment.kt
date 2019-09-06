@@ -1,4 +1,4 @@
-package com.dangerfield.barbrasbook.view
+package com.dangerfield.barbrasbook.view.news
 
 
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dangerfield.barbrasbook.R
+import com.dangerfield.barbrasbook.model.Article
+import com.dangerfield.barbrasbook.view.news.NewsAdapter
 import kotlinx.android.synthetic.main.fragment_news.*
 
 /**
@@ -35,7 +37,15 @@ class NewsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        adapter!!.articles = arrayListOf("Hi","How","Are","you","Hi","How","Are","you")
+        val list = ArrayList<Article>()
+
+        for(i in 0..10){
+            list.add(Article("Title",
+                "https://thehill.com/sites/default/files/styles/thumb_small_article/public/blogs/barbra_streisand_.jpg?itok=6mPGEzF_"))
+        }
+
+
+        adapter!!.articles = list
     }
 
     fun configureArticles() {

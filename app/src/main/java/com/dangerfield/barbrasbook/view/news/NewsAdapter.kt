@@ -1,4 +1,4 @@
-package com.dangerfield.barbrasbook.view
+package com.dangerfield.barbrasbook.view.news
 
 import android.content.Context
 import android.os.Bundle
@@ -11,11 +11,12 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
+import com.dangerfield.barbrasbook.model.Article
 import kotlinx.android.synthetic.main.item_article.view.*
 
-class NewsAdapter(private val context: Context, list: ArrayList<String>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(private val context: Context, list: ArrayList<Article>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
-    var articles = ArrayList<String>()
+    var articles = ArrayList<Article>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -34,7 +35,7 @@ class NewsAdapter(private val context: Context, list: ArrayList<String>): Recycl
             }
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return  ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_article, parent, false))
     }
 
@@ -43,18 +44,18 @@ class NewsAdapter(private val context: Context, list: ArrayList<String>): Recycl
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.image.context)
-            .load("https://www.thewrap.com/wp-content/uploads/2019/03/BarbraStreisand1.jpg")
+            .load(articles[position].image)
             .into(holder.image)
 
         //holder.image.background = context.getDrawable(R.drawable.ic_launcher_background)
         holder.title.text = "This is a title"
-        holder.preview.text = articles[position]
+        holder.preview.text = articles[position].title
     }
 
     fun openDetails(view: View, position: Int) {
         val bundle = Bundle()
         val data = articles[position]
-        bundle.putString("Title",data)
+        bundle.putParcelable("KEY",data)
         Navigation.findNavController(view).navigate(R.id.action_newsFragment_to_articleDetailFragment,bundle)
     }
 }

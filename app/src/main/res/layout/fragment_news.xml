@@ -5,7 +5,7 @@
     android:id="@+id/news_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.NewsFragment">
+    tools:context=".view.news.NewsFragment">
 
     <TextView
         android:id="@+id/tv_news_title"
