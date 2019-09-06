@@ -45,11 +45,12 @@ class NewsAdapter(private val context: Context, list: ArrayList<Article>): Recyc
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.image.context)
             .load(articles[position].image)
+            .centerCrop()
             .into(holder.image)
 
         //holder.image.background = context.getDrawable(R.drawable.ic_launcher_background)
-        holder.title.text = "This is a title"
-        holder.preview.text = articles[position].title
+        holder.title.text = articles[position].title
+        holder.preview.text = "This is a super real article. Belive me. "
     }
 
     fun openDetails(view: View, position: Int) {

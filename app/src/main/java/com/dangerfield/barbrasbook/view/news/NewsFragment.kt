@@ -40,10 +40,10 @@ class NewsFragment : Fragment() {
         val list = ArrayList<Article>()
 
         for(i in 0..10){
-            list.add(Article("Title",
-                "https://thehill.com/sites/default/files/styles/thumb_small_article/public/blogs/barbra_streisand_.jpg?itok=6mPGEzF_"))
+            list.add(Article("Barbra is a really cool person, spread the word",
+                "https://thehill.com/sites/default/files/styles/thumb_small_article/public/blogs/barbra_streisand_.jpg?itok=6mPGEzF_",
+                resources.getString(R.string.dummy_article)))
         }
-
 
         adapter!!.articles = list
     }
