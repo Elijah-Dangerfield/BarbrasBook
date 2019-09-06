@@ -35,7 +35,7 @@ class NewsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        adapter?.articles = arrayListOf("Hi","How","Are","you","Hi","How","Are","you")
+        adapter!!.articles = arrayListOf("Hi","How","Are","you","Hi","How","Are","you")
     }
 
     fun configureArticles() {
