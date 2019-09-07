@@ -1,7 +1,7 @@
 package com.dangerfield.barbrasbook.view
 
 
-import android.graphics.Color
+import android.annotation.SuppressLint
 import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,12 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
-import com.dangerfield.barbrasbook.model.RealArticle
+import com.dangerfield.barbrasbook.util.toReadableDate
 import kotlinx.android.synthetic.main.fragment_article_detail.*
 
 /**
@@ -30,6 +29,7 @@ class ArticleDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_article_detail, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -37,7 +37,7 @@ class ArticleDetailFragment : Fragment() {
             NavHostFragment.findNavController(this).popBackStack()
         }
 
-        var article = arguments?.getParcelable<RealArticle>("KEY")
+        var article = arguments?.getParcelable<Article>("KEY")
         iv_article_header.setColorFilter(
                 ContextCompat.getColor(context!!,
                 R.color.darkFilter),
@@ -48,7 +48,12 @@ class ArticleDetailFragment : Fragment() {
         article?.let {
 
             tv_article_header.text = it.title
-            tv_article_text.text = it.description
+            tv_article_text.text = it.content
+            tv_article_description.text = it.description
+            tv_article_publisher.text = it.source.name.substringBefore(".")
+            tv_article_date.text = it.publishedAt.toReadableDate()
+            tv_article_author.text = (it.author ?: "Unknown Author")
+            tv_article_link.text = it.url
 
             Glide
                 .with(this)
@@ -63,7 +68,5 @@ class ArticleDetailFragment : Fragment() {
             tv_heart.text = "Barbra loves you back"
         }
 
-
     }
-
 }

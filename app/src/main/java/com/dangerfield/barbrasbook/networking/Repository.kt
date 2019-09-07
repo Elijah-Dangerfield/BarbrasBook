@@ -3,7 +3,7 @@ package com.dangerfield.barbrasbook.networking
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dangerfield.barbrasbook.model.RealArticle
+import com.dangerfield.barbrasbook.model.Article
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import retrofit2.Call
@@ -13,9 +13,9 @@ object Repository {
     var job: CompletableJob? = null
     const val celebrity = "barbra streisand"
     private const val API_KEY = "0cec05e663864f78867ef7af73988cc2"
-    private val articles = MutableLiveData<List<RealArticle>>()
+    private val articles = MutableLiveData<List<Article>>()
 
-    fun getLatest(): LiveData<List<RealArticle>> {
+    fun getLatest(): LiveData<List<Article>> {
         job = Job()
 
         job?.let {runningJob ->

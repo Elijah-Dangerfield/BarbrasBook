@@ -12,15 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
-import com.dangerfield.barbrasbook.model.RealArticle
 import com.dangerfield.barbrasbook.util.toReadableDate
 import kotlinx.android.synthetic.main.item_article.view.*
 
-class NewsAdapter(private val context: Context, list: List<RealArticle>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(private val context: Context, list: List<Article>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
 
 
-    var articles = listOf<RealArticle>()
+    var articles = listOf<Article>()
         set(value) {
             field = value
             notifyDataSetChanged()
