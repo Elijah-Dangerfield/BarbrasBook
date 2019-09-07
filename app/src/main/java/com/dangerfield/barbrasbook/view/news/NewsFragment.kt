@@ -13,6 +13,7 @@ import com.dangerfield.barbrasbook.networking.LoadingStatus
 import com.dangerfield.barbrasbook.util.showIf
 import com.dangerfield.barbrasbook.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_news.*
+import com.dangerfield.barbrasbook.networking.Repository
 
 
 class NewsFragment : Fragment() {
@@ -32,7 +33,15 @@ class NewsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        //user to help with the collapsable header
         collapsing_toolbar.post { collapsing_toolbar.requestLayout() }
+
+        swipe_refresh_layout.setColorSchemeResources( R.color.colorPrimary, android.R.color.holo_blue_light
+            , android.R.color.holo_blue_dark)
+
+        swipe_refresh_layout.setOnRefreshListener {
+            Repository.getLatest()
+        }
 
         viewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
 
