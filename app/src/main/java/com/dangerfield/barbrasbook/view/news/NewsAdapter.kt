@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
+import com.dangerfield.barbrasbook.model.RealArticle
 import kotlinx.android.synthetic.main.item_article.view.*
 
-class NewsAdapter(private val context: Context, list: ArrayList<Article>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(private val context: Context, list: List<RealArticle>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
-    var articles = ArrayList<Article>()
+    var articles = listOf<RealArticle>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -44,7 +45,7 @@ class NewsAdapter(private val context: Context, list: ArrayList<Article>): Recyc
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.image.context)
-            .load(articles[position].image)
+            .load(articles[position].urlToImage)
             .centerCrop()
             .into(holder.image)
 

@@ -2,23 +2,25 @@ package com.dangerfield.barbrasbook.view.news
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
-import com.dangerfield.barbrasbook.view.news.NewsAdapter
+import com.dangerfield.barbrasbook.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_news.*
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class NewsFragment : Fragment() {
 
     private var adapter: NewsAdapter? = null
-
+    lateinit var viewModel : MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,20 +39,24 @@ class NewsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val list = ArrayList<Article>()
+        viewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
 
-        for(i in 0..10){
-            list.add(Article("Barbra is a really cool person, spread the word",
-                "https://thehill.com/sites/default/files/styles/thumb_small_article/public/blogs/barbra_streisand_.jpg?itok=6mPGEzF_",
-                resources.getString(R.string.dummy_article)))
-        }
+        viewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {articles ->
+            adapter?.articles = articles
+        })
 
-        adapter!!.articles = list
+
+
     }
 
     fun configureArticles() {
         rv_articles.layoutManager = LinearLayoutManager(context)
         adapter = NewsAdapter(context!!, ArrayList())
         rv_articles.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.cancelJobs()
     }
 }
