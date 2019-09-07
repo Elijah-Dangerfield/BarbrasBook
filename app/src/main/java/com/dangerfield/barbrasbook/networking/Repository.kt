@@ -17,11 +17,11 @@ object Repository {
     private val articles = MutableLiveData<List<Article>>()
 
 
-    fun getArticleLoadingStatus(): LiveData<LoadingStatus> = articleLoadingStatus
+    fun getArticleLoadingStatus(): MutableLiveData<LoadingStatus> = articleLoadingStatus
 
 
-    fun getLatest(): MutableLiveData<List<Article>> {
-        articleLoadingStatus.value = LoadingStatus.LOADING
+    fun getLatest(refreshing: Boolean = false): MutableLiveData<List<Article>> {
+        articleLoadingStatus.value = if(refreshing)LoadingStatus.REFRESHING else LoadingStatus.LOADING
         articlesJob = Job()
 
         articlesJob?.let {runningJob ->
