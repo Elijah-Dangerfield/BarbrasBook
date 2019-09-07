@@ -49,9 +49,10 @@ class NewsFragment : Fragment() {
             adapter?.articles = articles
         })
 
-        tv_news_title.setOnClickListener {
-            NavHostFragment.findNavController(this).navigate(R.id.action_newsFragment_to_testFragment)
-        }
+
+//        tv_news_title.setOnClickListener {
+//            NavHostFragment.findNavController(this).navigate(R.id.action_newsFragment_to_testFragment)
+//        }
     }
 
     fun configureArticles() {
