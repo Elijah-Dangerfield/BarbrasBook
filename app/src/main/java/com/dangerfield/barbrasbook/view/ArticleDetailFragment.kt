@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
+import com.dangerfield.barbrasbook.model.RealArticle
 import kotlinx.android.synthetic.main.fragment_article_detail.*
 
 /**
@@ -36,7 +37,7 @@ class ArticleDetailFragment : Fragment() {
             NavHostFragment.findNavController(this).popBackStack()
         }
 
-        var article = arguments?.getParcelable<Article>("KEY")
+        var article = arguments?.getParcelable<RealArticle>("KEY")
         iv_article_header.setColorFilter(
                 ContextCompat.getColor(context!!,
                 R.color.darkFilter),
@@ -47,11 +48,11 @@ class ArticleDetailFragment : Fragment() {
         article?.let {
 
             tv_article_header.text = it.title
-            tv_article_text.text = it.text
+            tv_article_text.text = it.description
 
             Glide
                 .with(this)
-                .load(it.image)
+                .load(it.urlToImage)
                 .centerCrop()
                 .into(iv_article_header)
         }
