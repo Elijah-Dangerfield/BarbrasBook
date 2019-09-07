@@ -1,6 +1,5 @@
 package com.dangerfield.barbrasbook.view.news
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dangerfield.barbrasbook.R
+import com.dangerfield.barbrasbook.networking.LoadingStatus
+import com.dangerfield.barbrasbook.util.showIf
 import com.dangerfield.barbrasbook.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_news.*
 
@@ -19,13 +20,8 @@ class NewsFragment : Fragment() {
     private var adapter: NewsAdapter? = null
     lateinit var viewModel : MainViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
+        = inflater.inflate(R.layout.fragment_news, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,10 +32,17 @@ class NewsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        collapsing_toolbar.post { collapsing_toolbar.requestLayout() }
+
         viewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
 
         viewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {articles ->
             adapter?.articles = articles
+        })
+
+        viewModel.getArticleLoadingStatus().observe(viewLifecycleOwner, Observer {loadingStatus ->
+            pb_latest.showIf(loadingStatus == LoadingStatus.LOADING)
+            tv_loading_error.showIf(loadingStatus == LoadingStatus.FAILED)
         })
     }
 

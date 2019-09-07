@@ -10,26 +10,34 @@ import retrofit2.Call
 
 object Repository {
 
-    var job: CompletableJob? = null
+    var articlesJob: CompletableJob? = null
     const val celebrity = "barbra streisand"
     private const val API_KEY = "0cec05e663864f78867ef7af73988cc2"
+    private val articleLoadingStatus = MutableLiveData<LoadingStatus>()
     private val articles = MutableLiveData<List<Article>>()
 
-    fun getLatest(): LiveData<List<Article>> {
-        job = Job()
 
-        job?.let {runningJob ->
+    fun getArticleLoadingStatus(): LiveData<LoadingStatus> = articleLoadingStatus
+
+
+    fun getLatest(): LiveData<List<Article>> {
+        articleLoadingStatus.value = LoadingStatus.LOADING
+        articlesJob = Job()
+
+        articlesJob?.let {runningJob ->
             CoroutineScope(IO + runningJob).launch {
                 val call = RetrofitBuilder.apiService.getLatest(celebrity, API_KEY)
                 call.enqueue(object: retrofit2.Callback<Response> {
 
                     override fun onFailure(call: Call<Response>, t: Throwable) {
+                        articleLoadingStatus.value = LoadingStatus.FAILED
                         Log.d("ERROR","Error when getting Latest Articles: "+t.localizedMessage)
                     }
 
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
                         articles.value = response.body()?.articles
                         runningJob.complete()
+                        articleLoadingStatus.value = LoadingStatus.LOADED
                     }
                 })
             }
@@ -38,6 +46,6 @@ object Repository {
     }
 
     fun cancelJobs() {
-        job?.cancel()
+        articlesJob?.cancel()
     }
 }

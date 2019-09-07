@@ -1,6 +1,6 @@
 package com.dangerfield.barbrasbook.util
 
-import android.util.Log
+import android.view.View
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,6 +15,10 @@ fun String.toReadableDate(): String {
     } catch (e: ParseException) {
         e.printStackTrace()
     }
-    Log.d("Date",date.toString())
     return date.toString().dropLast(18)
+}
+
+
+fun View.showIf(thisIsTrue: Boolean) {
+    this.visibility = if(thisIsTrue) View.VISIBLE else View.INVISIBLE
 }

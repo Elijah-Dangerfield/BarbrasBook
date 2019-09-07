@@ -13,13 +13,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/article_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".view.articleDetail.ArticleDetailFragment">
 
         <ImageView
             android:id="@+id/iv_article_header"
             android:layout_width="0dp"
             android:layout_height="175dp"
+            android:elevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +50,8 @@
             android:background="@null"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/article_header_image" />
 
         <TextView
             android:id="@+id/tv_article_text"
@@ -81,7 +83,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
             android:elevation="5dp"
-            android:text="Send one heart to Barbra"
+            android:text="@string/send_one_heart_to_barbra"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btn_heart"
             app:layout_constraintHorizontal_bias="0.504"
@@ -129,10 +131,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_article_header"
+            app:layout_constraintTop_toBottomOf="@+id/v_shadow"
             tools:text="Billy Bob joe" />
 
         <TextView
@@ -166,18 +168,28 @@
             android:clickable="true"
             app:layout_constraintEnd_toEndOf="@+id/tv_article_text"
             app:layout_constraintStart_toStartOf="@+id/tv_article_text"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Read The Full Article:"
+            android:text="@string/read_the_full_article"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="@+id/tv_article_link"
             app:layout_constraintStart_toStartOf="@+id/tv_article_link"
             app:layout_constraintTop_toBottomOf="@+id/tv_article_text" />
+
+        <View
+            android:id="@+id/v_shadow"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:background="@drawable/scrim"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iv_article_header"
+            app:layout_constraintTop_toBottomOf="@+id/iv_article_header" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

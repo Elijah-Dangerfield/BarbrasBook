@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Barbra\'s Book</string>
+    <string name="send_one_heart_to_barbra">Send one heart to Barbra</string>
+    <string name="read_the_full_article">Read The Full Article:</string>
+    <string name="article_header_image">Article Header Image</string>
+    <string name="error_loading_articles">Error Loading Articles</string>
 </resources>

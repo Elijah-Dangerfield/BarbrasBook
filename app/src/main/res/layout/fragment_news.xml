@@ -19,7 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="center_vertical"
             app:contentScrim="@android:color/background_light"
+            app:expandedTitleMargin="32dp"
             app:expandedTitleMarginStart="16dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:title="News">
@@ -28,11 +30,9 @@
                 android:id="@+id/anim_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_marginBottom="16dp"
-                android:minHeight="56dp"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleMargin="8dp"
+                app:titleMargin="0dp"
                 app:titleTextAppearance="@style/boldStyleText" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -43,7 +43,24 @@
         android:id="@+id/rv_articles"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <ProgressBar
+        android:id="@+id/pb_latest"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_loading_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/ic_android_black_24dp"
+        android:text="@string/error_loading_articles"
+        android:visibility="invisible" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
