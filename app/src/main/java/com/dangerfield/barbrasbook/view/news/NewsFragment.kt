@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
@@ -45,8 +49,9 @@ class NewsFragment : Fragment() {
             adapter?.articles = articles
         })
 
-
-
+        tv_news_title.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(R.id.action_newsFragment_to_testFragment)
+        }
     }
 
     fun configureArticles() {
