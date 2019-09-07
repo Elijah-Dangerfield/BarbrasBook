@@ -58,6 +58,7 @@ class ArticleDetailFragment : Fragment() {
         }
 
         btn_heart.setOnClickListener {
+            confetti_animation.playAnimation()
             iv_heart.setImageDrawable(resources.getDrawable(R.drawable.ic_heart_filled, null))
             tv_heart.text = "Barbra loves you back"
         }

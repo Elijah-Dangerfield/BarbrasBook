@@ -79,9 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="60dp"
+            android:elevation="5dp"
             android:text="Send one heart to Barbra"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btn_heart"
             app:layout_constraintStart_toStartOf="@+id/btn_heart"
             app:layout_constraintTop_toBottomOf="@+id/btn_heart" />
@@ -97,6 +96,19 @@
             app:layout_constraintStart_toStartOf="@+id/btn_heart"
             app:layout_constraintTop_toTopOf="@+id/btn_heart"
             app:srcCompat="@drawable/ic_heart" />
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/confetti_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_article_header"
+            app:lottie_fileName="confettiAnimation.json" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
