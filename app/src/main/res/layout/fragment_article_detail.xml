@@ -6,7 +6,7 @@
     android:id="@+id/article_parent_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ArticleDetailFragment">
+    tools:context=".view.articleDetail.ArticleDetailFragment">
 
 
 
@@ -14,7 +14,7 @@
         android:id="@+id/article_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ArticleDetailFragment">
+        tools:context=".view.articleDetail.ArticleDetailFragment">
 
         <ImageView
             android:id="@+id/iv_article_header"

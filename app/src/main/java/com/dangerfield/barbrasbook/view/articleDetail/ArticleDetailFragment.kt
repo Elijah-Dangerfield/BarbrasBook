@@ -1,4 +1,4 @@
-package com.dangerfield.barbrasbook.view
+package com.dangerfield.barbrasbook.view.articleDetail
 
 
 import android.annotation.SuppressLint

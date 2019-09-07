@@ -17,8 +17,6 @@ import kotlinx.android.synthetic.main.item_article.view.*
 
 class NewsAdapter(private val context: Context, list: List<Article>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
-
-
     var articles = listOf<Article>()
         set(value) {
             field = value
@@ -47,7 +45,6 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
 
     override fun getItemCount() = articles.size
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.image.context)
             .load(articles[position].urlToImage)
@@ -58,8 +55,8 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         holder.title.text = articles[position].title
         holder.preview.text = articles[position].description
         holder.source.text = articles[position].source.name.substringBefore(".")
-        holder.publishedDate.text = articles[position].publishedAt.toReadableDate()
-
+        //drop first 4 for article preview, only show MM//DD
+        holder.publishedDate.text = articles[position].publishedAt.toReadableDate().drop(4)
     }
 
     fun openDetails(view: View, position: Int) {

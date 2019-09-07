@@ -11,5 +11,4 @@ interface ApiService {
         @Query("q") query: String,
         @Query("apiKey") apiKey: String
     ): Call<Response>
-
 }
