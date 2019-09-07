@@ -51,11 +51,35 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:lines="2"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_article"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_article_source"
             app:layout_constraintEnd_toEndOf="@+id/tv_article_title"
             app:layout_constraintStart_toStartOf="@+id/tv_article_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_article_title" />
+
+        <TextView
+            android:id="@+id/tv_article_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_article"
+            app:layout_constraintStart_toStartOf="@+id/tv_article_preview" />
+
+        <TextView
+            android:id="@+id/tv_article_published"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:lines="1"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/tv_article_preview"
+            app:layout_constraintStart_toEndOf="@+id/tv_article_source"
+            app:layout_constraintTop_toTopOf="@+id/tv_article_source" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
 

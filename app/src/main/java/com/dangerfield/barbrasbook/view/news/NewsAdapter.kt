@@ -13,9 +13,12 @@ import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
 import com.dangerfield.barbrasbook.model.RealArticle
+import com.dangerfield.barbrasbook.util.toReadableDate
 import kotlinx.android.synthetic.main.item_article.view.*
 
 class NewsAdapter(private val context: Context, list: List<RealArticle>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+
+
 
     var articles = listOf<RealArticle>()
         set(value) {
@@ -29,6 +32,9 @@ class NewsAdapter(private val context: Context, list: List<RealArticle>): Recycl
         val title: TextView = view.tv_article_title
         val preview: TextView = view.tv_article_preview
         val image: ImageView = view.iv_article
+        val source: TextView = view.tv_article_source
+        val publishedDate: TextView = view.tv_article_published
+
 
         init {
             view.setOnClickListener {
@@ -51,7 +57,10 @@ class NewsAdapter(private val context: Context, list: List<RealArticle>): Recycl
 
         //holder.image.background = context.getDrawable(R.drawable.ic_launcher_background)
         holder.title.text = articles[position].title
-        holder.preview.text = "This is a super real article. Belive me. "
+        holder.preview.text = articles[position].description
+        holder.source.text = articles[position].source.name.substringBefore(".")
+        holder.publishedDate.text = articles[position].publishedAt.toReadableDate()
+
     }
 
     fun openDetails(view: View, position: Int) {
