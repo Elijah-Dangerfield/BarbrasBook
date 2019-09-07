@@ -9,12 +9,18 @@ import com.dangerfield.barbrasbook.networking.Repository
 
 class MainViewModel: ViewModel() {
 
-    private var articleLoadingStatus = MutableLiveData<LoadingStatus>()
+    private var latestArticles = MutableLiveData<List<Article>>()
 
-    fun getLatestArticles() = Repository.getLatest()
+    fun getLatestArticles() : LiveData<List<Article>> {
+        latestArticles = Repository.getLatest()
+        return latestArticles
+    }
 
     fun getArticleLoadingStatus() = Repository.getArticleLoadingStatus()
 
+    fun refreshArticles() {
+        latestArticles = Repository.getLatest()
+    }
 
     fun cancelJobs() {
         Repository.cancelJobs()

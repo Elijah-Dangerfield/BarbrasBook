@@ -20,7 +20,7 @@ object Repository {
     fun getArticleLoadingStatus(): LiveData<LoadingStatus> = articleLoadingStatus
 
 
-    fun getLatest(): LiveData<List<Article>> {
+    fun getLatest(): MutableLiveData<List<Article>> {
         articleLoadingStatus.value = LoadingStatus.LOADING
         articlesJob = Job()
 

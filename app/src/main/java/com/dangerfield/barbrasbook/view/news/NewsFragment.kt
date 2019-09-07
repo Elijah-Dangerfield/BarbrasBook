@@ -13,7 +13,6 @@ import com.dangerfield.barbrasbook.networking.LoadingStatus
 import com.dangerfield.barbrasbook.util.showIf
 import com.dangerfield.barbrasbook.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_news.*
-import com.dangerfield.barbrasbook.networking.Repository
 
 
 class NewsFragment : Fragment() {
@@ -40,13 +39,14 @@ class NewsFragment : Fragment() {
             , android.R.color.holo_blue_dark)
 
         swipe_refresh_layout.setOnRefreshListener {
-            Repository.getLatest()
+            viewModel.refreshArticles()
         }
 
         viewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
 
         viewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {articles ->
             adapter?.articles = articles
+            if(articles.isNotEmpty()) swipe_refresh_layout.isRefreshing = false
         })
 
         viewModel.getArticleLoadingStatus().observe(viewLifecycleOwner, Observer {loadingStatus ->
