@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/article_parent_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".view.articleDetail.ArticleDetailFragment">
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,10 +47,10 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@null"
+            android:contentDescription="@string/article_header_image"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/article_header_image" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_article_text"
@@ -143,6 +142,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_article_author"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_article_author"
@@ -167,10 +167,10 @@
             android:layout_height="wrap_content"
             android:autoLink="web"
             android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="@+id/tv_article_text"
             app:layout_constraintStart_toStartOf="@+id/tv_article_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_read_full"
-            android:focusable="true" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_read_full" />
 
         <TextView
             android:id="@+id/tv_read_full"

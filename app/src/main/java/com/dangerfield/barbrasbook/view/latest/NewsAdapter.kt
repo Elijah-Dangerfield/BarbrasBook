@@ -1,10 +1,11 @@
-package com.dangerfield.barbrasbook.view.news
+package com.dangerfield.barbrasbook.view.latest
 
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
@@ -31,6 +32,7 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         val image: ImageView = view.iv_article
         val source: TextView = view.tv_article_source
         val publishedDate: TextView = view.tv_article_published
+        val btnExpand: ImageButton = view.ib_item_expand
 
 
         init {
@@ -46,18 +48,28 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
     override fun getItemCount() = articles.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = articles[position]
+        holder.itemView.ib_item_expand.setOnClickListener { toggleExpansion(position) }
+
+        if(item.isExpanded){
+            holder.preview.maxLines = Int.MAX_VALUE
+            holder.btnExpand.rotation = 180f
+        }else{
+            holder.preview.maxLines = 2
+            holder.btnExpand.rotation = 0f
+        }
+
         Glide.with(holder.image.context)
-            .load(articles[position].urlToImage)
+            .load(item.urlToImage)
             .placeholder(R.color.colorPrimary)
             .centerCrop()
             .into(holder.image)
 
-        //holder.image.background = context.getDrawable(R.drawable.ic_launcher_background)
-        holder.title.text = articles[position].title
-        holder.preview.text = articles[position].description
-        holder.source.text = articles[position].source.name.substringBefore(".")
+        holder.title.text = item.title
+        holder.preview.text = item.description
+        holder.source.text = item.source.name.substringBefore(".")
         //drop first 4 for article preview, only show MM//DD
-        holder.publishedDate.text = articles[position].publishedAt.toReadableDate().drop(4)
+        holder.publishedDate.text = item.publishedAt.toReadableDate().drop(4)
     }
 
     fun openDetails(view: View, position: Int) {
@@ -65,5 +77,10 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         val data = articles[position]
         bundle.putParcelable("KEY",data)
         Navigation.findNavController(view).navigate(R.id.action_newsFragment_to_articleDetailFragment,bundle)
+    }
+
+    fun toggleExpansion(position: Int) {
+        articles[position].isExpanded = !articles[position].isExpanded
+        notifyItemChanged(position)
     }
 }

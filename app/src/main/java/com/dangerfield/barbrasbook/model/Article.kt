@@ -13,5 +13,6 @@ data class Article(
     @SerializedName("source") val source: Source,
     @SerializedName("title") val title: String,
     @SerializedName("url") val url: String,
-    @SerializedName("urlToImage") val urlToImage: String
+    @SerializedName("urlToImage") val urlToImage: String,
+    var isExpanded: Boolean = false
 ) : Parcelable

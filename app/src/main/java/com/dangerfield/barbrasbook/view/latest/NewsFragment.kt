@@ -1,4 +1,4 @@
-package com.dangerfield.barbrasbook.view.news
+package com.dangerfield.barbrasbook.view.latest
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -37,9 +37,7 @@ class NewsFragment : Fragment() {
         swipe_refresh_layout.setColorSchemeResources( R.color.colorPrimary, android.R.color.holo_blue_light
             , android.R.color.holo_blue_dark)
 
-        swipe_refresh_layout.setOnRefreshListener {
-            viewModel.refreshArticles()
-        }
+        swipe_refresh_layout.setOnRefreshListener { viewModel.refreshArticles() }
 
         viewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
 
@@ -50,8 +48,11 @@ class NewsFragment : Fragment() {
 
         viewModel.getArticleLoadingStatus().observe(viewLifecycleOwner, Observer {loadingStatus ->
             pb_latest.showIf(loadingStatus == LoadingStatus.LOADING)
+
             tv_loading_error.showIf(loadingStatus == LoadingStatus.FAILED
                     && adapter?.articles.isNullOrEmpty())
+
+            swipe_refresh_layout.isRefreshing = loadingStatus == LoadingStatus.REFRESHING
         })
     }
 

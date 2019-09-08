@@ -7,12 +7,14 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.dangerfield.barbrasbook.view.news.NewsFragment"
+        android:name="com.dangerfield.barbrasbook.view.latest.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" >
         <action
             android:id="@+id/action_newsFragment_to_articleDetailFragment"
-            app:destination="@id/articleDetailFragment" />
+            app:destination="@id/articleDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/articleDetailFragment"
