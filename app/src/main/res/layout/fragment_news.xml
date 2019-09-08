@@ -24,7 +24,7 @@
             app:expandedTitleMargin="32dp"
             app:expandedTitleMarginStart="16dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:title="News">
+            app:title="@string/latest_title">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/anim_toolbar"

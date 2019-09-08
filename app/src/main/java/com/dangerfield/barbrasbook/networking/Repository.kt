@@ -10,8 +10,8 @@ import retrofit2.Call
 
 object Repository {
 
-    var articlesJob: CompletableJob? = null
-    const val celebrity = "barbra streisand"
+    private var articlesJob: CompletableJob? = null
+    private const val celebrity = "barbra streisand"
     private const val API_KEY = "0cec05e663864f78867ef7af73988cc2"
     private val articleLoadingStatus = MutableLiveData<LoadingStatus>()
     private val articles = MutableLiveData<List<Article>>()
