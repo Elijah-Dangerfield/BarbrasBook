@@ -2,11 +2,9 @@ package com.dangerfield.barbrasbook.util
 
 import android.animation.ValueAnimator
 import android.view.View
-import android.view.animation.LinearInterpolator
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 fun String.toReadableDate(): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
@@ -18,7 +16,6 @@ fun String.toReadableDate(): String {
     }
     return date.toString().dropLast(18)
 }
-
 
 fun View.showIf(thisIsTrue: Boolean) {
     this.visibility = if(thisIsTrue) View.VISIBLE else View.INVISIBLE
@@ -35,4 +32,5 @@ fun View.rotate(from: Float,to: Float) {
     valueAnimator.duration = 300
     valueAnimator.start()
 }
+
 
