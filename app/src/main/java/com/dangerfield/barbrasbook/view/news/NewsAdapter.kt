@@ -48,6 +48,7 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.image.context)
             .load(articles[position].urlToImage)
+            .placeholder(R.color.colorPrimary)
             .centerCrop()
             .into(holder.image)
 

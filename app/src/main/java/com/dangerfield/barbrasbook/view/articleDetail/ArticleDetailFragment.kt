@@ -37,7 +37,7 @@ class ArticleDetailFragment : Fragment() {
 
         btn_heart.setOnClickListener {
             confetti_animation.playAnimation()
-            Glide.with(this).load(R.drawable.ic_heart_filled).into(iv_heart)
+            iv_heart.background = resources.getDrawable(R.drawable.ic_heart_filled,null)
             tv_heart.text = getString(R.string.barba_loves_you)
         }
     }
@@ -62,6 +62,7 @@ class ArticleDetailFragment : Fragment() {
                 Glide
                     .with(this)
                     .load(it.urlToImage)
+                    .placeholder(R.color.colorPrimary)
                     .centerCrop()
                     .into(iv_article_header)
             }
