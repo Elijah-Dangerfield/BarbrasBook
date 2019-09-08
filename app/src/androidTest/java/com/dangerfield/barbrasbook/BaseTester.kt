@@ -15,14 +15,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 @RunWith(AndroidJUnit4::class)
-class LatestFragmentTester {
+class BaseTester {
 
     @Rule
     @JvmField
     val rule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
-
 
     @Test
     fun test_can_useAppContext() {
@@ -37,7 +35,7 @@ class LatestFragmentTester {
     }
 
     @Test
-    fun test_barb_loves_you_back() {
+    fun test_barb_loves_me_back() {
         onView(withId(R.id.rv_articles)).perform(actionOnItemAtPosition<NewsAdapter.ViewHolder>(0,click()))
         onView(withId(R.id.btn_heart)).perform(click())
         onView(withId(R.id.tv_heart)).check(matches(withText("Barbra loves you back")))

@@ -11,7 +11,6 @@ fun String.toReadableDate(): String {
     var date: Date? = null
     try {
         date = formatter.parse(this)
-        println(date)
     } catch (e: ParseException) {
         e.printStackTrace()
     }
