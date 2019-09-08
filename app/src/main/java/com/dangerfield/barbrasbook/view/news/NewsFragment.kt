@@ -14,7 +14,6 @@ import com.dangerfield.barbrasbook.util.showIf
 import com.dangerfield.barbrasbook.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_news.*
 
-
 class NewsFragment : Fragment() {
 
     private var adapter: NewsAdapter? = null
@@ -51,7 +50,8 @@ class NewsFragment : Fragment() {
 
         viewModel.getArticleLoadingStatus().observe(viewLifecycleOwner, Observer {loadingStatus ->
             pb_latest.showIf(loadingStatus == LoadingStatus.LOADING)
-            tv_loading_error.showIf(loadingStatus == LoadingStatus.FAILED)
+            tv_loading_error.showIf(loadingStatus == LoadingStatus.FAILED
+                    && adapter?.articles.isNullOrEmpty())
         })
     }
 
