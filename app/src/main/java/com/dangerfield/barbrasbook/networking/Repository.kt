@@ -1,8 +1,6 @@
 package com.dangerfield.barbrasbook.networking
 
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dangerfield.barbrasbook.model.Article
 import kotlinx.coroutines.*
@@ -36,7 +34,6 @@ object Repository {
 
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
                         articles.value = response.body()?.articles
-                        Log.d("networking","officially pulled new articles")
                         runningJob.complete()
                         articleLoadingStatus.value = LoadingStatus.LOADED
                     }
@@ -46,7 +43,5 @@ object Repository {
         return articles
     }
 
-    fun cancelJobs() {
-        articlesJob?.cancel()
-    }
+    fun cancelJobs() { articlesJob?.cancel() }
 }

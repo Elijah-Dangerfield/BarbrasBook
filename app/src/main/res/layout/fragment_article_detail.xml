@@ -187,7 +187,7 @@
             android:id="@+id/v_shadow"
             android:layout_width="0dp"
             android:layout_height="5dp"
-            android:background="@drawable/scrim"
+            android:background="@drawable/shadow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/iv_article_header"
             app:layout_constraintTop_toBottomOf="@+id/iv_article_header" />

@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
+import com.dangerfield.barbrasbook.util.rotate
 import com.dangerfield.barbrasbook.util.toReadableDate
+import com.dangerfield.barbrasbook.model.ExpandedStatus
+
 import kotlinx.android.synthetic.main.item_article.view.*
 
 class NewsAdapter(private val context: Context, list: List<Article>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -34,7 +37,6 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         val publishedDate: TextView = view.tv_article_published
         val btnExpand: ImageButton = view.ib_item_expand
 
-
         init {
             view.setOnClickListener {
                 openDetails(it,adapterPosition)
@@ -49,16 +51,15 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = articles[position]
+
         holder.itemView.ib_item_expand.setOnClickListener { toggleExpansion(position) }
 
-        if(item.isExpanded){
-            holder.preview.maxLines = Int.MAX_VALUE
-            holder.btnExpand.rotation = 180f
-        }else{
-            holder.preview.maxLines = 2
-            holder.btnExpand.rotation = 0f
-        }
+        handleExpansion(item,holder)
 
+        bindView(item, holder)
+    }
+
+    fun bindView(item: Article, holder: ViewHolder) {
         Glide.with(holder.image.context)
             .load(item.urlToImage)
             .placeholder(R.color.colorPrimary)
@@ -72,6 +73,27 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         holder.publishedDate.text = item.publishedAt.toReadableDate().drop(4)
     }
 
+    fun handleExpansion(item: Article, holder: ViewHolder) {
+        when(item.expandedStatus){
+            ExpandedStatus.EXPANDED -> {expand(holder)}
+            ExpandedStatus.COLLAPSED -> {collapse(holder)}
+            else -> {
+                holder.preview.maxLines = 2
+                holder.btnExpand.rotation = 0f
+            }
+        }
+    }
+
+    fun expand(holder: ViewHolder) {
+        holder.preview.maxLines = Int.MAX_VALUE
+        holder.btnExpand.rotate(0f,180f)
+    }
+
+    fun collapse(holder: ViewHolder) {
+        holder.preview.maxLines = 2
+        holder.btnExpand.rotate(180f,0f)
+    }
+
     fun openDetails(view: View, position: Int) {
         val bundle = Bundle()
         val data = articles[position]
@@ -80,7 +102,10 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
     }
 
     fun toggleExpansion(position: Int) {
-        articles[position].isExpanded = !articles[position].isExpanded
+
+        articles[position].expandedStatus = if(articles[position].expandedStatus == ExpandedStatus.EXPANDED)
+            ExpandedStatus.COLLAPSED else ExpandedStatus.EXPANDED
+
         notifyItemChanged(position)
     }
 }

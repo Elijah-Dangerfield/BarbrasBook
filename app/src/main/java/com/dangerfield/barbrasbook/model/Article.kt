@@ -14,5 +14,11 @@ data class Article(
     @SerializedName("title") val title: String,
     @SerializedName("url") val url: String,
     @SerializedName("urlToImage") val urlToImage: String,
-    var isExpanded: Boolean = false
+    var expandedStatus: ExpandedStatus?
 ) : Parcelable
+
+
+ enum class ExpandedStatus {
+    EXPANDED,
+    COLLAPSED
+}
