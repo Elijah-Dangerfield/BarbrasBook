@@ -30,14 +30,22 @@ class NewsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         //user to help with the collapsable header
         collapsing_toolbar.post { collapsing_toolbar.requestLayout() }
 
+        setupRefresher()
+
+        setupViewModel()
+    }
+
+    fun setupRefresher() {
         swipe_refresh_layout.setColorSchemeResources( R.color.colorPrimary, android.R.color.holo_blue_light
             , android.R.color.holo_blue_dark)
 
         swipe_refresh_layout.setOnRefreshListener { viewModel.refreshArticles() }
+    }
+
+    fun setupViewModel() {
 
         viewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
 

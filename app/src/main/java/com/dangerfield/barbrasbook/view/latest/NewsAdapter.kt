@@ -75,7 +75,7 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
     fun openDetails(view: View, position: Int) {
         val bundle = Bundle()
         val data = articles[position]
-        bundle.putParcelable("KEY",data)
+        bundle.putParcelable(context.resources.getString(R.string.article_key),data)
         Navigation.findNavController(view).navigate(R.id.action_newsFragment_to_articleDetailFragment,bundle)
     }
 

@@ -22,7 +22,7 @@ class ArticleDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_article_detail, container, false)
-        val article = arguments?.getParcelable<Article>("KEY")
+        val article = arguments?.getParcelable<Article>(context?.resources?.getString(R.string.article_key))
         initViewsWith(view, article)
         return view
     }
@@ -34,12 +34,13 @@ class ArticleDetailFragment : Fragment() {
             NavHostFragment.findNavController(this).popBackStack()
         }
 
+        btn_heart.setOnClickListener {playAnimation()}
+    }
 
-        btn_heart.setOnClickListener {
-            confetti_animation.playAnimation()
-            iv_heart.background = resources.getDrawable(R.drawable.ic_heart_filled,null)
-            tv_heart.text = getString(R.string.barba_loves_you)
-        }
+    fun playAnimation() {
+        confetti_animation.playAnimation()
+        iv_heart.background = resources.getDrawable(R.drawable.ic_heart_filled,null)
+        tv_heart.text = getString(R.string.barba_loves_you)
     }
 
     fun initViewsWith(view: View, article: Article?) {

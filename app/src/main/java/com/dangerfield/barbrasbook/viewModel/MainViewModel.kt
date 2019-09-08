@@ -15,6 +15,7 @@ class MainViewModel: ViewModel() {
     fun cancelJobs() { Repository.cancelJobs() }
 
     fun refreshArticles() {
+        //force pull when user wants refresh
         latestArticles = Repository.getLatest(refreshing = true)
     }
 
@@ -24,7 +25,10 @@ class MainViewModel: ViewModel() {
     }
 
     fun getLatestArticles() : LiveData<List<Article>> {
-        latestArticles = Repository.getLatest()
+        //only pull if the articles are null
+        if(latestArticles.value.isNullOrEmpty()) {
+            latestArticles = Repository.getLatest()
+        }
         return latestArticles
     }
 }
