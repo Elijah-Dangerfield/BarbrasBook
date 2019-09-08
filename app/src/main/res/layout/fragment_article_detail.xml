@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/article_parent_scroll"
     android:layout_width="match_parent"
@@ -9,189 +8,23 @@
     tools:context=".view.articleDetail.ArticleDetailFragment">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/article_parent"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".view.articleDetail.ArticleDetailFragment">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_article_header"
-            android:layout_width="0dp"
-            android:layout_height="175dp"
-            android:elevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+        <include layout="@layout/detail_header_layout"
+            android:id="@+id/included_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <com.dangerfield.barbrasbook.util.AutoResizeTextView
-            android:id="@+id/tv_article_header"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_article_header"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/iv_article_header"
-            app:layout_constraintTop_toBottomOf="@+id/ib_article_back" />
-
-        <ImageButton
-            android:id="@+id/ib_article_back"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@null"
-            android:contentDescription="@string/article_header_image"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_article_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_article_description" />
-
-        <Button
-            android:id="@+id/btn_heart"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/drawable_circle"
-            android:elevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_article_link" />
-
-        <TextView
-            android:id="@+id/tv_heart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="32dp"
-            android:elevation="5dp"
-            android:text="@string/send_one_heart_to_barbra"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/btn_heart"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="@+id/btn_heart"
-            app:layout_constraintTop_toBottomOf="@+id/btn_heart" />
-
-        <ImageView
-            android:id="@+id/iv_heart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="2dp"
-            android:src="@drawable/ic_heart"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_heart"
-            app:layout_constraintEnd_toEndOf="@+id/btn_heart"
-            app:layout_constraintStart_toStartOf="@+id/btn_heart"
-            app:layout_constraintTop_toTopOf="@+id/btn_heart"
-            app:srcCompat="@drawable/ic_heart" />
+        <include layout="@layout/detail_content_layout"
+            android:id="@+id/included_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/confetti_animation"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_article_header"
-            app:lottie_fileName="confettiAnimation.json" />
 
-        <TextView
-            android:id="@+id/tv_article_publisher"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="45dp"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ib_article_back"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_article_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:textColor="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_shadow"
-            tools:text="Billy Bob joe" />
-
-        <TextView
-            android:id="@+id/tv_article_date"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_article_author"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_article_author"
-            app:layout_constraintTop_toTopOf="@+id/tv_article_author"
-            tools:text="August 3, 2019" />
-
-        <TextView
-            android:id="@+id/tv_article_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_article_author" />
-
-        <TextView
-            android:id="@+id/tv_article_link"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintEnd_toEndOf="@+id/tv_article_text"
-            app:layout_constraintStart_toStartOf="@+id/tv_article_text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_read_full" />
-
-        <TextView
-            android:id="@+id/tv_read_full"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/read_the_full_article"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="@+id/tv_article_link"
-            app:layout_constraintStart_toStartOf="@+id/tv_article_link"
-            app:layout_constraintTop_toBottomOf="@+id/tv_article_text" />
-
-        <View
-            android:id="@+id/v_shadow"
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:background="@drawable/shadow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/iv_article_header"
-            app:layout_constraintTop_toBottomOf="@+id/iv_article_header" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </ScrollView>
