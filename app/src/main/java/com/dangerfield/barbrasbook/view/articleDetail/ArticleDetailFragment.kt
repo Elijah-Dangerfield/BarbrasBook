@@ -40,13 +40,13 @@ class ArticleDetailFragment : Fragment() {
         btn_heart.setOnClickListener {playAnimation()}
     }
 
-    fun configureToolBar() {
+    private fun configureToolBar() {
         (activity as AppCompatActivity).setSupportActionBar(anim_toolbar)
         anim_toolbar.title = ""
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { layout, offSet ->
+        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, offSet ->
             //offset: 0 means fully expanded
             if(abs(offSet) > 200) {
                 setTitle(true)
@@ -56,7 +56,7 @@ class ArticleDetailFragment : Fragment() {
         })
     }
 
-    fun setTitle(needsShown: Boolean) {
+    private fun setTitle(needsShown: Boolean) {
         //only set the title if it needs set
         if(needsShown && collapsing_toolbar.title.isNullOrEmpty()){
             collapsing_toolbar.title = tv_article_publisher.text
@@ -65,13 +65,13 @@ class ArticleDetailFragment : Fragment() {
         }
     }
 
-    fun playAnimation() {
+    private fun playAnimation() {
         confetti_animation.playAnimation()
         iv_heart.background = resources.getDrawable(R.drawable.ic_heart_filled,null)
         tv_heart.text = getString(R.string.barba_loves_you)
     }
 
-    fun initViewsWith(view: View, article: Article?) {
+    private fun initViewsWith(view: View, article: Article?) {
         view.run {
             iv_article_header.setColorFilter(
                 ContextCompat.getColor(context!!,

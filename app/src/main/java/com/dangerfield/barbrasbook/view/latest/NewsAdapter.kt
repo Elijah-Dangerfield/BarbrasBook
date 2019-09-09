@@ -59,7 +59,7 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         bindView(item, holder)
     }
 
-    fun bindView(item: Article, holder: ViewHolder) {
+    private fun bindView(item: Article, holder: ViewHolder) {
         Glide.with(holder.image.context)
             .load(item.urlToImage)
             .placeholder(R.color.colorPrimary)
@@ -73,7 +73,7 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         holder.publishedDate.text = item.publishedAt.toReadableDate().drop(4)
     }
 
-    fun handleExpansion(item: Article, holder: ViewHolder) {
+    private fun handleExpansion(item: Article, holder: ViewHolder) {
         when(item.expandedStatus){
             ExpandedStatus.EXPANDED -> {expand(holder)}
             ExpandedStatus.COLLAPSED -> {collapse(holder)}
@@ -84,24 +84,24 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         }
     }
 
-    fun expand(holder: ViewHolder) {
+    private fun expand(holder: ViewHolder) {
         holder.preview.maxLines = Int.MAX_VALUE
         holder.btnExpand.rotate(0f,180f)
     }
 
-    fun collapse(holder: ViewHolder) {
+    private fun collapse(holder: ViewHolder) {
         holder.preview.maxLines = 2
         holder.btnExpand.rotate(180f,0f)
     }
 
-    fun openDetails(view: View, position: Int) {
+    private fun openDetails(view: View, position: Int) {
         val bundle = Bundle()
         val data = articles[position]
         bundle.putParcelable(context.resources.getString(R.string.article_key),data)
         Navigation.findNavController(view).navigate(R.id.action_newsFragment_to_articleDetailFragment,bundle)
     }
 
-    fun toggleExpansion(position: Int) {
+    private fun toggleExpansion(position: Int) {
 
         articles[position].expandedStatus = if(articles[position].expandedStatus == ExpandedStatus.EXPANDED)
             ExpandedStatus.COLLAPSED else ExpandedStatus.EXPANDED

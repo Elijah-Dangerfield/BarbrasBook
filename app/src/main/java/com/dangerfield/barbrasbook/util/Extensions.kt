@@ -6,6 +6,9 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * converts time stamp given by api to a readable format
+ */
 fun String.toReadableDate(): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
     var date: Date? = null
@@ -17,10 +20,16 @@ fun String.toReadableDate(): String {
     return date.toString().dropLast(18)
 }
 
+/**
+ * sets visibility of view based on boolean
+ */
 fun View.showIf(thisIsTrue: Boolean) {
     this.visibility = if(thisIsTrue) View.VISIBLE else View.INVISIBLE
 }
 
+/**
+ * rotates a view 180%
+ */
 fun View.rotate(from: Float,to: Float) {
     val valueAnimator = ValueAnimator.ofFloat(from, to)
 

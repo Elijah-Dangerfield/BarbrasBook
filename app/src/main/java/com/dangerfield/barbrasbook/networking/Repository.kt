@@ -18,6 +18,7 @@ object Repository {
     fun getArticleLoadingStatus(): MutableLiveData<LoadingStatus> = articleLoadingStatus
 
     /***
+     * fetches celebrity articles from API
      * @Input: whether or not the request is for a refresh of data
      * @output new celebrity articles from api
      */
@@ -47,5 +48,8 @@ object Repository {
         return articles
     }
 
+    /**
+     * cancels ongoing jobs
+     */
     fun cancelJobs() { articlesJob?.cancel() }
 }

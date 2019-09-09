@@ -41,14 +41,14 @@ class NewsFragment : Fragment() {
         setupViewModel()
     }
 
-    fun setupRefresher() {
+    private fun setupRefresher() {
         swipe_refresh_layout.setColorSchemeResources( R.color.colorPrimary, android.R.color.holo_blue_light
             , android.R.color.holo_blue_dark)
 
         swipe_refresh_layout.setOnRefreshListener { viewModel.refreshArticles() }
     }
 
-    fun setupViewModel() {
+    private fun setupViewModel() {
 
         viewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {articles ->
             adapter?.articles = articles
@@ -73,7 +73,7 @@ class NewsFragment : Fragment() {
         })
     }
 
-    fun configureArticles() {
+    private fun configureArticles() {
         rv_articles.layoutManager = LinearLayoutManager(context)
         adapter = NewsAdapter(context!!, ArrayList())
         rv_articles.adapter = adapter

@@ -17,7 +17,6 @@ data class Article(
     var expandedStatus: ExpandedStatus?
 ) : Parcelable
 
-
  enum class ExpandedStatus {
     EXPANDED,
     COLLAPSED
