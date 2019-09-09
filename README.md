@@ -27,6 +27,6 @@ Contains the view model used to hold live data to be displayed on screen.
 
 ## Things of note
 The main recycler view contains a swipe down to refresh feature  <br />
-You wont regret sending Barbra a heart of the article fragment
+You wont regret sending Barbra a heart in the article fragment
 
 # THANKS :)
