@@ -2,6 +2,7 @@ package com.dangerfield.barbrasbook.view.articleDetail
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
+import com.dangerfield.barbrasbook.db.ArticleDataTable
+import com.dangerfield.barbrasbook.db.ArticlesDatabase
 import com.dangerfield.barbrasbook.model.Article
+import com.dangerfield.barbrasbook.model.Source
 import com.dangerfield.barbrasbook.util.toReadableDate
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.detail_content_layout.*
@@ -18,6 +22,8 @@ import kotlinx.android.synthetic.main.detail_content_layout.view.*
 import kotlinx.android.synthetic.main.detail_header_layout.*
 import kotlinx.android.synthetic.main.detail_header_layout.view.*
 import kotlinx.android.synthetic.main.fragment_article_detail.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 
@@ -58,10 +64,10 @@ class ArticleDetailFragment : Fragment() {
 
     private fun setTitle(needsShown: Boolean) {
         //only set the title if it needs set
-        if(needsShown && collapsing_toolbar.title.isNullOrEmpty()){
-            collapsing_toolbar.title = tv_article_publisher.text
+        if(needsShown && collapsing_toolbar?.title.isNullOrEmpty()){
+            collapsing_toolbar?.title = tv_article_publisher.text
         }else if (!needsShown && collapsing_toolbar.title != ""){
-            collapsing_toolbar.title = ""
+            collapsing_toolbar?.title = ""
         }
     }
 
@@ -69,6 +75,29 @@ class ArticleDetailFragment : Fragment() {
         confetti_animation.playAnimation()
         iv_heart.background = resources.getDrawable(R.drawable.ic_heart_filled,null)
         tv_heart.text = getString(R.string.barba_loves_you)
+
+        val db = ArticlesDatabase(context!!)
+        GlobalScope.launch {
+
+            db.articleDao().update(
+                listOf(ArticleDataTable(
+                null,
+                author = "MY ASS",
+                content = "MY BUTT",
+                description = "DESCRIPTION",
+                publishedAt = "NONE YA",
+                source = "",
+                title = "TITLE",
+                url = "",urlToImage = ""
+                )))
+
+            val data = db.articleDao().getAll()
+            Log.d("DB","Before")
+
+            data.forEach {
+                Log.d("DB",it.toString())
+            }
+        }
     }
 
     private fun initViewsWith(view: View, article: Article?) {
