@@ -17,7 +17,9 @@ import kotlinx.android.synthetic.main.fragment_news.*
 class NewsFragment : Fragment() {
 
     private var adapter: NewsAdapter? = null
-    lateinit var viewModel : MainViewModel
+    private val viewModel : MainViewModel by lazy {
+        ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
         = inflater.inflate(R.layout.fragment_news, container, false)
@@ -46,8 +48,6 @@ class NewsFragment : Fragment() {
     }
 
     fun setupViewModel() {
-
-        viewModel = ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
 
         viewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {articles ->
             adapter?.articles = articles
