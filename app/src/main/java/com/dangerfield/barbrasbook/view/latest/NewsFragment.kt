@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,6 +60,14 @@ class NewsFragment : Fragment() {
 
             tv_loading_error.showIf(loadingStatus == LoadingStatus.FAILED
                     && adapter?.articles.isNullOrEmpty())
+
+            if(loadingStatus == LoadingStatus.FAILED && adapter?.articles?.isNotEmpty() == true){
+                //then user tried to refresh but could not
+                Toast.makeText(context,
+                    resources.getString(R.string.refresh_failed),
+                    Toast.LENGTH_LONG)
+                    .show()
+            }
 
             swipe_refresh_layout.isRefreshing = loadingStatus == LoadingStatus.REFRESHING
         })

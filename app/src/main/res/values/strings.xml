@@ -8,5 +8,7 @@
     <string name="latest_title">Barb\'s Latest</string>
     <string name="article_key">abc123barbalovesme</string>
     <string name="image_of_article_header">Image of article header</string>
+    <string name="refresh_failed">Failed to refresh. Please check network status and try again.</string>
+
 
 </resources>

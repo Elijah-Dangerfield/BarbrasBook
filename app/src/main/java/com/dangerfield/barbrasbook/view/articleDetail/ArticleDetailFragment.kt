@@ -48,7 +48,7 @@ class ArticleDetailFragment : Fragment() {
 
         appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { layout, offSet ->
             //offset: 0 means fully expanded
-            if(abs(offSet) > 250) {
+            if(abs(offSet) > 200) {
                 setTitle(true)
             }else{
                 setTitle(false)
