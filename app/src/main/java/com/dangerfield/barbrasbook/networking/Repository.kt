@@ -15,7 +15,6 @@ object Repository {
     private val articleLoadingStatus = MutableLiveData<LoadingStatus>()
     private val articles = MutableLiveData<List<Article>>()
 
-
     fun getArticleLoadingStatus(): MutableLiveData<LoadingStatus> = articleLoadingStatus
 
     /***
