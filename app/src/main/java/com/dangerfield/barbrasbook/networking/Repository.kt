@@ -14,6 +14,7 @@ object Repository {
     const val API_KEY = "0cec05e663864f78867ef7af73988cc2"
     private val articleLoadingStatus = MutableLiveData<LoadingStatus>()
     private val articles = MutableLiveData<List<Article>>()
+    val liveSearchTerm = MutableLiveData<String>()
 
     fun getArticleLoadingStatus(): MutableLiveData<LoadingStatus> = articleLoadingStatus
 
@@ -21,14 +22,21 @@ object Repository {
      * @Input: whether or not the request is for a refresh of data
      * @output new celebrity articles from api
      */
-    fun getLatest(refreshing: Boolean = false): MutableLiveData<List<Article>> {
+    fun getLatest(searchTerm: String? = null, refreshing: Boolean = false): MutableLiveData<List<Article>> {
+
         articleLoadingStatus.value = if(refreshing)LoadingStatus.REFRESHING else LoadingStatus.LOADING
+        searchTerm?.let{liveSearchTerm.value = searchTerm }
+
         articlesJob = Job()
 
         articlesJob?.let {runningJob ->
             //launched with job scope to make task cancelable from viewmodel
             CoroutineScope(IO + runningJob).launch {
-                val call = RetrofitBuilder.apiService.getLatest(celebrity, API_KEY)
+                val call =
+                    RetrofitBuilder
+                        .apiService
+                        .getLatest(liveSearchTerm.value ?:celebrity, API_KEY)
+
                 call.enqueue(object: retrofit2.Callback<Response> {
 
                     override fun onFailure(call: Call<Response>, t: Throwable) {

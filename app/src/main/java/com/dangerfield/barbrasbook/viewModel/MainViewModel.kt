@@ -9,6 +9,7 @@ import com.dangerfield.barbrasbook.networking.Repository
 
 class MainViewModel: ViewModel() {
 
+    var searchTerm: String? = null
     private var latestArticles = MutableLiveData<List<Article>>()
     private var articleLoadingStatus = MutableLiveData<LoadingStatus>()
 
@@ -26,8 +27,8 @@ class MainViewModel: ViewModel() {
 
     fun getLatestArticles() : LiveData<List<Article>> {
         //only pull if the articles are null
-        if(latestArticles.value.isNullOrEmpty()) {
-            latestArticles = Repository.getLatest()
+        if(latestArticles.value.isNullOrEmpty() || searchTerm != Repository.liveSearchTerm.value) {
+            latestArticles = Repository.getLatest(searchTerm)
         }
         return latestArticles
     }

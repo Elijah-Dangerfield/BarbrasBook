@@ -18,12 +18,20 @@ import kotlinx.android.synthetic.main.fragment_news.*
 class NewsFragment : Fragment() {
 
     private var adapter: NewsAdapter? = null
-    private val viewModel : MainViewModel by lazy {
+    private var searchTerm: String? = null
+    private val viewModel: MainViewModel by lazy {
         ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-        = inflater.inflate(R.layout.fragment_news, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_news, container, false)
+        searchTerm = arguments?.getString("SEARCH_TERM")
+        return view
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +57,11 @@ class NewsFragment : Fragment() {
     }
 
     fun setupViewModel() {
+
+        searchTerm?.let {
+            viewModel.searchTerm = searchTerm
+            collapsing_toolbar.title = searchTerm
+        }
 
         viewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {articles ->
             adapter?.articles = articles
