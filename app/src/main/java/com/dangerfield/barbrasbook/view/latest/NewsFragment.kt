@@ -30,7 +30,7 @@ class NewsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //user to help with the collapsable header
+        //used to help with the #sick collapsable header
         collapsing_toolbar.post { collapsing_toolbar.requestLayout() }
 
         setupRefresher()
@@ -72,6 +72,7 @@ class NewsFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        //cancel any outstanding jobs in repository
         viewModel.cancelJobs()
     }
 }

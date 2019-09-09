@@ -18,11 +18,16 @@ object Repository {
 
     fun getArticleLoadingStatus(): MutableLiveData<LoadingStatus> = articleLoadingStatus
 
+    /***
+     * @Input: whether or not the request is for a refresh of data
+     * @output new celebrity articles from api
+     */
     fun getLatest(refreshing: Boolean = false): MutableLiveData<List<Article>> {
         articleLoadingStatus.value = if(refreshing)LoadingStatus.REFRESHING else LoadingStatus.LOADING
         articlesJob = Job()
 
         articlesJob?.let {runningJob ->
+            //launched with job scope to make task cancelable from viewmodel
             CoroutineScope(IO + runningJob).launch {
                 val call = RetrofitBuilder.apiService.getLatest(celebrity, API_KEY)
                 call.enqueue(object: retrofit2.Callback<Response> {

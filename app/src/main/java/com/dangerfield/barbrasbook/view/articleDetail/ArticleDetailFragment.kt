@@ -47,7 +47,7 @@ class ArticleDetailFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
 
         appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { layout, offSet ->
-            //offset: 0 mean fully expanded
+            //offset: 0 means fully expanded
             if(abs(offSet) > 250) {
                 setTitle(true)
             }else{
@@ -57,6 +57,7 @@ class ArticleDetailFragment : Fragment() {
     }
 
     fun setTitle(needsShown: Boolean) {
+        //only set the title if it needs set
         if(needsShown && collapsing_toolbar.title.isNullOrEmpty()){
             collapsing_toolbar.title = tv_article_publisher.text
         }else if (!needsShown && collapsing_toolbar.title != ""){
