@@ -6,16 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
 import com.dangerfield.barbrasbook.util.toReadableDate
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.detail_content_layout.*
 import kotlinx.android.synthetic.main.detail_content_layout.view.*
 import kotlinx.android.synthetic.main.detail_header_layout.*
 import kotlinx.android.synthetic.main.detail_header_layout.view.*
+import kotlinx.android.synthetic.main.fragment_article_detail.*
+import kotlin.math.abs
+
 
 class ArticleDetailFragment : Fragment() {
 
@@ -32,11 +36,32 @@ class ArticleDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        ib_article_back.setOnClickListener {
-            NavHostFragment.findNavController(this).popBackStack()
-        }
-
+        configureToolBar()
         btn_heart.setOnClickListener {playAnimation()}
+    }
+
+    fun configureToolBar() {
+        (activity as AppCompatActivity).setSupportActionBar(anim_toolbar)
+        anim_toolbar.title = ""
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        appbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { layout, offSet ->
+            //offset: 0 mean fully expanded
+            if(abs(offSet) > 250) {
+                setTitle(true)
+            }else{
+                setTitle(false)
+            }
+        })
+    }
+
+    fun setTitle(needsShown: Boolean) {
+        if(needsShown && collapsing_toolbar.title.isNullOrEmpty()){
+            collapsing_toolbar.title = tv_article_publisher.text
+        }else if (!needsShown && collapsing_toolbar.title != ""){
+            collapsing_toolbar.title = ""
+        }
     }
 
     fun playAnimation() {

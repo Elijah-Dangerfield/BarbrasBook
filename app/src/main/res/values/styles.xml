@@ -8,8 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
-
     <!--used for bold  text-->
     <style name="boldStyleText" parent="@android:style/Widget.TextView">
         <item name="android:textSize">16sp</item>
