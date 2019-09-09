@@ -17,7 +17,7 @@ class MainViewModel: ViewModel() {
 
     fun refreshArticles() {
         //force pull when user wants refresh
-        latestArticles = Repository.getLatest(refreshing = true)
+        latestArticles = Repository.getLatest(searchTerm,refreshing = true)
     }
 
     fun getArticleLoadingStatus(): LiveData<LoadingStatus> {

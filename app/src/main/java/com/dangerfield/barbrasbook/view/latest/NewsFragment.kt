@@ -44,6 +44,21 @@ class NewsFragment : Fragment() {
         //used to help with the #sick collapsable header
         collapsing_toolbar.post { collapsing_toolbar.requestLayout() }
 
+        toolbar_button.setOnClickListener {
+            Toast.makeText(context,"CLICKED",Toast.LENGTH_LONG).show()
+            collapsing_toolbar.title = ""
+            tv_search.visibility = View.VISIBLE
+            tv_search.requestFocus()
+            btn_search.visibility = View.VISIBLE
+        }
+
+        btn_search.setOnClickListener {
+            viewModel.searchTerm = tv_search.text.toString()
+            viewModel.refreshArticles()
+            btn_search.visibility = View.GONE
+            tv_search.visibility = View.GONE
+            collapsing_toolbar.title = tv_search.text.toString()
+        }
         setupRefresher()
 
         setupViewModel()

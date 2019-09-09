@@ -23,7 +23,7 @@
         tools:layout="@layout/fragment_article_detail" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.dangerfield.barbrasbook.SearchFragment"
+        android:name="com.dangerfield.barbrasbook.view.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action

@@ -34,7 +34,40 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:titleMargin="0dp"
-                app:titleTextAppearance="@style/boldStyleText" />
+                app:titleTextAppearance="@style/boldStyleText" >
+
+                <Button
+                    android:id="@+id/toolbar_button"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="end"
+
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/ic_clear" />
+
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="start"
+                    android:visibility="gone"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/ic_heart" />
+
+
+                <EditText
+                    android:id="@+id/tv_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ems="10"
+                    android:foregroundGravity="left"
+                    android:gravity="start"
+                    android:hint="Search"
+                    android:inputType="textPersonName"
+                    android:visibility="gone" />
+
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

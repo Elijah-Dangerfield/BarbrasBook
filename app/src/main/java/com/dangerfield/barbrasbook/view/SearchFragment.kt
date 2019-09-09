@@ -1,4 +1,4 @@
-package com.dangerfield.barbrasbook
+package com.dangerfield.barbrasbook.view
 
 
 import android.os.Bundle
@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.NavController
-import androidx.navigation.NavHost
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import com.dangerfield.barbrasbook.R
 import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment : Fragment() {
