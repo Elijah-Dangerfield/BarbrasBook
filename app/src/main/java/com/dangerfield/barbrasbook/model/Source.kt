@@ -5,6 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Source(
-    val id: String,
-    val name: String
-) : Parcelable
+    var id: String,
+    var name: String
+) : Parcelable {
+    constructor(source: String) : this("",source)
+}

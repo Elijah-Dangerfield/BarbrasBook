@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.dangerfield.barbrasbook.model.Article
 
-
-@Database(entities = arrayOf(ArticleDataTable::class), version = 1)
+@TypeConverters(Converter::class)
+@Database(entities = [Article::class], version = 1, exportSchema = false)
 abstract class ArticlesDatabase : RoomDatabase() {
-
     abstract fun articleDao(): ArticlesDao
 
     companion object {
