@@ -23,6 +23,12 @@ object Repository {
      * @output new celebrity articles from api
      */
     fun getLatest(refreshing: Boolean = false): MutableLiveData<List<Article>> {
+
+        getFromApi(refreshing)
+        return articles
+    }
+
+    fun getFromApi(refreshing: Boolean) {
         articleLoadingStatus.value = if(refreshing)LoadingStatus.REFRESHING else LoadingStatus.LOADING
         articlesJob = Job()
 
@@ -45,7 +51,6 @@ object Repository {
                 })
             }
         }
-        return articles
     }
 
     /**

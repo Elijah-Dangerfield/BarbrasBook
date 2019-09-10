@@ -9,7 +9,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 /**
- *  Represents a table within the database.
+ *  Represents and article from News API. Annotations allow for
+ *  serialization with Retrofit as well as Column definitions for Room database
  */
 @Entity(tableName = "articleDataTable")
 @Parcelize
