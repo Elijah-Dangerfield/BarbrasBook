@@ -14,13 +14,13 @@ import com.dangerfield.barbrasbook.networking.LoadingStatus
 import com.dangerfield.barbrasbook.util.showIf
 import com.dangerfield.barbrasbook.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_news.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class NewsFragment : Fragment() {
 
     private var adapter: NewsAdapter? = null
-    private val viewModel : MainViewModel by lazy {
-        ViewModelProviders.of(activity!!).get(MainViewModel::class.java)
-    }
+    //gets view model will injected dependencies
+    private val mainViewModel : MainViewModel by  viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
         = inflater.inflate(R.layout.fragment_news, container, false)
@@ -45,17 +45,17 @@ class NewsFragment : Fragment() {
         swipe_refresh_layout.setColorSchemeResources( R.color.colorPrimary, android.R.color.holo_blue_light
             , android.R.color.holo_blue_dark)
 
-        swipe_refresh_layout.setOnRefreshListener { viewModel.refreshArticles() }
+        swipe_refresh_layout.setOnRefreshListener { mainViewModel.refreshArticles() }
     }
 
     private fun setupViewModel() {
 
-        viewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {articles ->
+        mainViewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {articles ->
             adapter?.articles = articles
             if(articles.isNotEmpty()) swipe_refresh_layout.isRefreshing = false
         })
 
-        viewModel.getArticleLoadingStatus().observe(viewLifecycleOwner, Observer {loadingStatus ->
+        mainViewModel.getArticleLoadingStatus().observe(viewLifecycleOwner, Observer {loadingStatus ->
             pb_latest.showIf(loadingStatus == LoadingStatus.LOADING)
 
             tv_loading_error.showIf(loadingStatus == LoadingStatus.FAILED
@@ -82,6 +82,6 @@ class NewsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         //cancel any outstanding jobs in repository
-        viewModel.cancelJobs()
+        mainViewModel.cancelJobs()
     }
 }

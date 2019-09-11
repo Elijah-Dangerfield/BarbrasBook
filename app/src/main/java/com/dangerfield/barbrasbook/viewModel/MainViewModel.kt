@@ -7,7 +7,7 @@ import com.dangerfield.barbrasbook.model.Article
 import com.dangerfield.barbrasbook.networking.LoadingStatus
 import com.dangerfield.barbrasbook.networking.Repository
 
-class MainViewModel: ViewModel() {
+class MainViewModel(private val repository: Repository): ViewModel() {
 
     private var latestArticles = MutableLiveData<List<Article>>()
     private var articleLoadingStatus = MutableLiveData<LoadingStatus>()
@@ -15,14 +15,14 @@ class MainViewModel: ViewModel() {
     /**
      * cancles all jobs in view model
      */
-    fun cancelJobs() { Repository.cancelJobs() }
+    fun cancelJobs() { repository.cancelJobs() }
 
     /**
      * Force pulls new articles from api in repository
      * sets live data's variable
      */
     fun refreshArticles() {
-        latestArticles = Repository.getLatest(refreshing = true)
+        latestArticles = repository.getLatest(refreshing = true)
     }
 
     /**
@@ -30,7 +30,7 @@ class MainViewModel: ViewModel() {
      * {LOADING,REFRESHING,LOADED,FAILED}
      */
     fun getArticleLoadingStatus(): LiveData<LoadingStatus> {
-        articleLoadingStatus = Repository.getArticleLoadingStatus()
+        articleLoadingStatus = repository.getArticleLoadingStatus()
         return articleLoadingStatus
     }
 
@@ -40,7 +40,7 @@ class MainViewModel: ViewModel() {
      */
     fun getLatestArticles() : LiveData<List<Article>> {
         if(latestArticles.value.isNullOrEmpty()) {
-            latestArticles = Repository.getLatest()
+            latestArticles = repository.getLatest()
         }
         return latestArticles
     }
