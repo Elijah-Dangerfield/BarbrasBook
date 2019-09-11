@@ -1,12 +1,11 @@
 package com.dangerfield.barbrasbook
 
-import com.dangerfield.barbrasbook.networking.Repository
-import com.dangerfield.barbrasbook.networking.RetrofitBuilder
+import com.dangerfield.barbrasbook.api.Repository
+import com.dangerfield.barbrasbook.api.RetrofitBuilder
 import com.dangerfield.barbrasbook.util.toReadableDate
 import org.junit.Test
 
 import org.junit.Assert.*
-import org.junit.experimental.results.ResultMatchers.isSuccessful
 import java.io.IOException
 
 class BaseUnitTest {

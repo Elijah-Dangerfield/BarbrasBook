@@ -1,4 +1,4 @@
-package com.dangerfield.barbrasbook.networking
+package com.dangerfield.barbrasbook.api
 
 import java.io.IOException
 

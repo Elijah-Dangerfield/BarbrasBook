@@ -18,7 +18,7 @@ interface ArticlesDao {
      * inserts all passed articles into database
      */
     @Insert
-    fun insertAll(vararg articles: Article)
+    fun insertAll(articles:  List<Article>)
 
     /**
      * removes all articles in the database

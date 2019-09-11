@@ -1,4 +1,4 @@
-package com.dangerfield.barbrasbook.networking
+package com.dangerfield.barbrasbook.api
 
 import com.dangerfield.barbrasbook.model.Article
 import com.google.gson.annotations.SerializedName

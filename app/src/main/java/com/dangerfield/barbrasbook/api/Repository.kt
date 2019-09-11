@@ -1,18 +1,22 @@
-package com.dangerfield.barbrasbook.networking
+package com.dangerfield.barbrasbook.api
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.dangerfield.barbrasbook.db.ArticlesDatabase
 import com.dangerfield.barbrasbook.model.Article
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import retrofit2.Call
 
-class Repository(private val celebrity: String) {
+class Repository(private val celebrity: String, application: Application) {
 
     private var articlesJob: CompletableJob? = null
-    val API_KEY = "0cec05e663864f78867ef7af73988cc2"
+    private val API_KEY = "0cec05e663864f78867ef7af73988cc2"
     private val articleLoadingStatus = MutableLiveData<LoadingStatus>()
     private val articles = MutableLiveData<List<Article>>()
+    private val db = ArticlesDatabase(application)
+
 
     /**
      * returns the current loading status of the request to get articles
@@ -26,14 +30,17 @@ class Repository(private val celebrity: String) {
      * @output new celebrity articles from api
      */
     fun getLatest(refreshing: Boolean = false): MutableLiveData<List<Article>> {
+        articleLoadingStatus.value =
+            if(refreshing)LoadingStatus.REFRESHING else LoadingStatus.LOADING
 
-        if(Connectivity.isOnline) getFromApi(refreshing) else getFromDatabase()
+        if(Connectivity.isOnline) getFromApi() else getFromDatabase()
 
         return articles
     }
 
-    private fun getFromApi(refreshing: Boolean) {
-        articleLoadingStatus.value = if(refreshing)LoadingStatus.REFRESHING else LoadingStatus.LOADING
+    private fun getFromApi() {
+        Log.d("API","Getting articles from API")
+
         articlesJob = Job()
 
         articlesJob?.let {runningJob ->
@@ -45,23 +52,47 @@ class Repository(private val celebrity: String) {
                     override fun onFailure(call: Call<Response>, t: Throwable) {
                         articleLoadingStatus.postValue(LoadingStatus.FAILED)
                         Log.d("ERROR","Error when getting Latest Articles: "+t.localizedMessage)
-                        //TODO: consider calling getFromDatabase and toasting it
+                        //TODO consider getting from database
                     }
 
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
+                        Log.d("API","GOT articles from API")
+
                         articles.value = response.body()?.articles
+                        writeToDataBase(response.body()?.articles)
                         articles.postValue(response.body()?.articles)
                         runningJob.complete()
                         articleLoadingStatus.postValue(LoadingStatus.LOADED)
-                        //TODO consider writing to database here
                     }
                 })
             }
         }
     }
 
-    private fun getFromDatabase() {
+    private fun writeToDataBase(articles: List<Article>?) {
+        Log.d("API","Writing to database with \n\n\n\n $articles")
 
+        articlesJob = Job()
+
+        articlesJob?.let {runningJob ->
+            CoroutineScope(IO + runningJob).launch {
+                db.articleDao().insertAll(articles ?: listOf())
+            }
+        }
+    }
+
+    private fun getFromDatabase() {
+        Log.d("API","Getting articles from DB")
+        articlesJob = Job()
+
+        articlesJob?.let {runningJob ->
+            CoroutineScope(IO + runningJob).launch {
+                articles.postValue( db.articleDao().getAll())
+                articleLoadingStatus.postValue(LoadingStatus.LOADED)
+                Log.d("API","GOT articles from DB")
+                runningJob.complete()
+            }
+        }
     }
 
     /**
