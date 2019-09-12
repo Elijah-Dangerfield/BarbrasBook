@@ -69,13 +69,10 @@ dependencies {
     //for some sick animations
     implementation 'com.airbnb.android:lottie:3.0.7'
 
-    // Room Database studd
+    // Room Database
     implementation "androidx.room:room-runtime:2.2.0-rc01"
     kapt "androidx.room:room-compiler:2.2.0-rc01"
 
-
     //Dependency Injection
     implementation 'org.koin:koin-android-viewmodel:2.0.1'
-
-
 }

@@ -30,13 +30,12 @@ class NewsFragment : Fragment() {
         configureArticles()
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //used to help with the #sick collapsable header
         collapsing_toolbar.post { collapsing_toolbar.requestLayout() }
-
         setupRefresher()
-
         setupViewModel()
     }
 
@@ -63,7 +62,6 @@ class NewsFragment : Fragment() {
 
             //API request failed but we could laod from DB :)
             if(loadingStatus == LoadingStatus.FAILED && adapter?.articles?.isNotEmpty() == true){
-                //then user tried to get data but could not
                 Toast.makeText(context,
                     resources.getString(R.string.api_failed),
                     Toast.LENGTH_LONG)
