@@ -18,7 +18,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class NewsFragment : Fragment() {
 
     private var adapter: NewsAdapter? = null
-    //gets view model will injected dependencies
+    //gets view model will @inject dependencies
     private val mainViewModel : MainViewModel by  viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
@@ -57,17 +57,18 @@ class NewsFragment : Fragment() {
         mainViewModel.getArticleLoadingStatus().observe(viewLifecycleOwner, Observer {loadingStatus ->
             pb_latest.showIf(loadingStatus == LoadingStatus.LOADING)
 
+            //then the API request failed AND we could not load from DB
             tv_loading_error.showIf(loadingStatus == LoadingStatus.FAILED
                     && adapter?.articles.isNullOrEmpty())
 
+            //API request failed but we could laod from DB :)
             if(loadingStatus == LoadingStatus.FAILED && adapter?.articles?.isNotEmpty() == true){
-                //then user tried to refresh but could not
+                //then user tried to get data but could not
                 Toast.makeText(context,
-                    resources.getString(R.string.refresh_failed),
+                    resources.getString(R.string.api_failed),
                     Toast.LENGTH_LONG)
                     .show()
             }
-
             swipe_refresh_layout.isRefreshing = loadingStatus == LoadingStatus.REFRESHING
         })
     }

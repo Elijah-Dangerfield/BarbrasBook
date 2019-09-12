@@ -7,7 +7,7 @@ object Connectivity {
     /**
      * Checks whether device is currently online or not by Pinging a server
      * This uses Google's DNS (very unlikely to ever be down)
-     * Preferable compared to connectivity manager as connected != online
+     * Preferable compared to connectivity/session manager as connected != online
      */
     var isOnline: Boolean = false
         private set

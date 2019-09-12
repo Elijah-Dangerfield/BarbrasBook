@@ -11,6 +11,6 @@ val viewModelModule = module {
     // singleton of the barbra repository
     single { Repository("barbra streisand", androidApplication()) }
 
-    // create the viewModel with the repository dependency
+    // create the viewModel with the repository dependency INJECTED :)
     viewModel { MainViewModel(get()) }
 }

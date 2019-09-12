@@ -50,9 +50,8 @@ class Repository(private val celebrity: String, application: Application) {
                 call.enqueue(object: retrofit2.Callback<Response> {
 
                     override fun onFailure(call: Call<Response>, t: Throwable) {
-                        articleLoadingStatus.postValue(LoadingStatus.FAILED)
                         Log.d("ERROR","Error when getting Latest Articles: "+t.localizedMessage)
-                        //TODO consider getting from database
+                        getFromDatabase()
                     }
 
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
@@ -76,7 +75,7 @@ class Repository(private val celebrity: String, application: Application) {
 
         articlesJob?.let {runningJob ->
             CoroutineScope(IO + runningJob).launch {
-                db.articleDao().insertAll(articles ?: listOf())
+                db.articleDao().updateAll(articles ?: listOf())
             }
         }
     }
@@ -88,7 +87,8 @@ class Repository(private val celebrity: String, application: Application) {
         articlesJob?.let {runningJob ->
             CoroutineScope(IO + runningJob).launch {
                 articles.postValue( db.articleDao().getAll())
-                articleLoadingStatus.postValue(LoadingStatus.LOADED)
+                //loading set to failed to let view know that the network request did not go through
+                articleLoadingStatus.postValue(LoadingStatus.FAILED)
                 Log.d("API","GOT articles from DB")
                 runningJob.complete()
             }

@@ -1,8 +1,6 @@
 package com.dangerfield.barbrasbook.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.dangerfield.barbrasbook.model.Article
 
 @Dao
@@ -17,12 +15,24 @@ interface ArticlesDao {
     /**
      * inserts all passed articles into database
      */
-    @Insert
-    fun insertAll(articles:  List<Article>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(articles: List<Article>)
 
     /**
      * removes all articles in the database
      */
     @Query("DELETE from articleDataTable")
     fun deleteAll()
+
+    /**
+     * replaces all data in database. Chosen to do this rather than
+     * only replacing on conflict because as time goes on, users will retain
+     * ALL articles ever seen. Data will accumulate. This will only hold on to the
+     * most recent data :)
+     */
+    @Transaction
+    fun updateAll(articles: List<Article>) {
+        deleteAll()
+        insertAll(articles)
+    }
 }
