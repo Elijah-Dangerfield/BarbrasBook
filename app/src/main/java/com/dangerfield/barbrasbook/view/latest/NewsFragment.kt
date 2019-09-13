@@ -22,7 +22,7 @@ class NewsFragment : Fragment() {
     private val mainViewModel : MainViewModel by  viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-        = inflater.inflate(R.layout.fragment_news, container, false)
+        = inflater.inflate(R.layout.fragment_news, container, false)!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

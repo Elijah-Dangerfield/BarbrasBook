@@ -37,11 +37,7 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         val publishedDate: TextView = view.tv_article_published
         val btnExpand: ImageButton = view.ib_item_expand
 
-        init {
-            view.setOnClickListener {
-                openDetails(it,adapterPosition)
-            }
-        }
+        init { view.setOnClickListener { openDetails(it,adapterPosition) } }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return  ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_article, parent, false))
