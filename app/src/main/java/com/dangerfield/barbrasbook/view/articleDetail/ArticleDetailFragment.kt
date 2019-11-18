@@ -87,7 +87,7 @@ class ArticleDetailFragment : Fragment() {
                 tv_article_text.text = it.content
                 tv_article_description.text = it.description
                 tv_article_publisher.text = it.source.name.substringBefore(".")
-                tv_article_date.text = it.publishedAt.toReadableDate()
+                tv_article_date.text = it.publishedAt?.toReadableDate()
                 tv_article_author.text = (it.author ?: "Unknown Author")
                 tv_article_link.text = it.url
                 tv_article_header.text = it.title

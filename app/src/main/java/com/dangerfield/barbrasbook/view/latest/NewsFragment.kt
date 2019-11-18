@@ -19,7 +19,7 @@ class NewsFragment : Fragment() {
 
     private var adapter: NewsAdapter? = null
     //gets view model will @inject dependencies
-    private val mainViewModel : MainViewModel by  viewModel()
+    private val mainViewModel : MainViewModel by  viewModel<MainViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
         = inflater.inflate(R.layout.fragment_news, container, false)!!

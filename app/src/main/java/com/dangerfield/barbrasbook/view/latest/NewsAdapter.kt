@@ -66,7 +66,7 @@ class NewsAdapter(private val context: Context, list: List<Article>): RecyclerVi
         holder.preview.text = item.description
         holder.source.text = item.source.name.substringBefore(".")
         //drop first 4 for article preview, only show MM//DD
-        holder.publishedDate.text = item.publishedAt.toReadableDate().drop(4)
+        holder.publishedDate.text = item.publishedAt?.toReadableDate()?.drop(4)
     }
 
     private fun handleExpansion(item: Article, holder: ViewHolder) {
