@@ -21,7 +21,7 @@ class Repository(private val celebrity: String, application: Application) {
      * @Input: whether or not the request is for a refresh of data
      * @output new celebrity articles from api
      */
-    fun getLatest(refreshing: Boolean = false): MutableLiveData<Resource<List<Article>>> {
+    fun getArticleFeed(refreshing: Boolean = false): MutableLiveData<Resource<List<Article>>> {
 
         articleFeed.value = Resource.Loading(refreshing=refreshing)
 

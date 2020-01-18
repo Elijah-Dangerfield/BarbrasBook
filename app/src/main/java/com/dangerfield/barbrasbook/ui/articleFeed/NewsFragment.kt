@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dangerfield.barbrasbook.R
-import com.dangerfield.barbrasbook.api.LoadingStatus
 import com.dangerfield.barbrasbook.api.Resource
 import com.dangerfield.barbrasbook.util.showIf
 import kotlinx.android.synthetic.main.fragment_news.*

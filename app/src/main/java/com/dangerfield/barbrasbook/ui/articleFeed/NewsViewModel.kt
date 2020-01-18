@@ -20,7 +20,7 @@ class NewsViewModel(private val repository: Repository): ViewModel() {
      * sets live data's variable
      */
     fun refreshArticles() {
-        latestArticles = repository.getLatest(refreshing = true)
+        latestArticles = repository.getArticleFeed(refreshing = true)
     }
 
     /**
@@ -29,7 +29,7 @@ class NewsViewModel(private val repository: Repository): ViewModel() {
      */
     fun getLatestArticles() : MutableLiveData<Resource<List<Article>>> {
         if(latestArticles.value?.data.isNullOrEmpty()) {
-            latestArticles = repository.getLatest()
+            latestArticles = repository.getArticleFeed()
         }
         return latestArticles
     }
