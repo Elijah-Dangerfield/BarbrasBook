@@ -19,11 +19,8 @@ This folder contains all the sweet sauce for Retrofit
 ### util/
 This holder contains a helper class that lets me resize text views as well as come Kotlin extension functions to make my life easier
 
-### view/
-Contains all views (fragments)
-
-### viewModel/
-Contains the view model used to hold live data to be displayed on screen. 
+### ui/
+Contains all views(fragments) paired with view models
 
 ## Things of note
 The main recycler view contains a swipe down to refresh feature  <br />
