@@ -1,8 +1,7 @@
-package com.dangerfield.barbrasbook.view.articleDetail
+package com.dangerfield.barbrasbook.ui.articleDetail
 
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
-import com.dangerfield.barbrasbook.db.ArticlesDatabase
 import com.dangerfield.barbrasbook.model.Article
 import com.dangerfield.barbrasbook.util.toReadableDate
 import com.google.android.material.appbar.AppBarLayout
@@ -20,8 +18,6 @@ import kotlinx.android.synthetic.main.detail_content_layout.view.*
 import kotlinx.android.synthetic.main.detail_header_layout.*
 import kotlinx.android.synthetic.main.detail_header_layout.view.*
 import kotlinx.android.synthetic.main.fragment_article_detail.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 

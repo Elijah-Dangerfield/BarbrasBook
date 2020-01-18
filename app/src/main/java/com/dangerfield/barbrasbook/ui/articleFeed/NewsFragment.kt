@@ -1,4 +1,4 @@
-package com.dangerfield.barbrasbook.view.latest
+package com.dangerfield.barbrasbook.ui.articleFeed
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.api.LoadingStatus
+import com.dangerfield.barbrasbook.api.Resource
 import com.dangerfield.barbrasbook.util.showIf
-import com.dangerfield.barbrasbook.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -19,7 +19,7 @@ class NewsFragment : Fragment() {
 
     private var adapter: NewsAdapter? = null
     //gets view model will @inject dependencies
-    private val mainViewModel : MainViewModel by  viewModel<MainViewModel>()
+    private val newsViewModel : NewsViewModel by  viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
         = inflater.inflate(R.layout.fragment_news, container, false)!!
@@ -29,7 +29,6 @@ class NewsFragment : Fragment() {
 
         configureArticles()
     }
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -43,43 +42,30 @@ class NewsFragment : Fragment() {
         swipe_refresh_layout.setColorSchemeResources( R.color.colorPrimary, android.R.color.holo_blue_light
             , android.R.color.holo_blue_dark)
 
-        swipe_refresh_layout.setOnRefreshListener { mainViewModel.refreshArticles() }
+        swipe_refresh_layout.setOnRefreshListener { newsViewModel.refreshArticles() }
     }
 
     private fun setupViewModel() {
 
-        mainViewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {articles ->
-            adapter?.articles = articles
-            if(articles.isNotEmpty()) swipe_refresh_layout.isRefreshing = false
-        })
-
-        mainViewModel.getArticleLoadingStatus().observe(viewLifecycleOwner, Observer {loadingStatus ->
-            pb_latest.showIf(loadingStatus == LoadingStatus.LOADING)
-
-            //then the API request failed AND we could not load from DB
-            tv_loading_error.showIf(loadingStatus == LoadingStatus.FAILED
-                    && adapter?.articles.isNullOrEmpty())
-
-            //API request failed but we could laod from DB :)
-            if(loadingStatus == LoadingStatus.FAILED && adapter?.articles?.isNotEmpty() == true){
-                Toast.makeText(context,
-                    resources.getString(R.string.api_failed),
-                    Toast.LENGTH_LONG)
-                    .show()
+        newsViewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {response ->
+            pb_latest.showIf(response is Resource.Loading)
+            swipe_refresh_layout.isRefreshing = (response is Resource.Loading && response.refreshing)
+            when(response) {
+                is Resource.Success -> adapter?.articles = response.data ?: listOf()
+                is Resource.Error -> Toast.makeText(context, response.message ,Toast.LENGTH_LONG).show()
             }
-            swipe_refresh_layout.isRefreshing = loadingStatus == LoadingStatus.REFRESHING
         })
     }
 
     private fun configureArticles() {
         rv_articles.layoutManager = LinearLayoutManager(context)
-        adapter = NewsAdapter(context!!, ArrayList())
+        adapter = NewsAdapter(context!!)
         rv_articles.adapter = adapter
     }
 
     override fun onDestroy() {
         super.onDestroy()
         //cancel any outstanding jobs in repository
-        mainViewModel.cancelJobs()
+        newsViewModel.cancelJobs()
     }
 }

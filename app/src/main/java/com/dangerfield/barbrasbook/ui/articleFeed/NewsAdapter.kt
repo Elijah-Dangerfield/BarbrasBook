@@ -1,4 +1,4 @@
-package com.dangerfield.barbrasbook.view.latest
+package com.dangerfield.barbrasbook.ui.articleFeed
 
 import android.content.Context
 import android.os.Bundle
@@ -19,15 +19,13 @@ import com.dangerfield.barbrasbook.model.ExpandedStatus
 
 import kotlinx.android.synthetic.main.item_article.view.*
 
-class NewsAdapter(private val context: Context, list: List<Article>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(private val context: Context): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     var articles = listOf<Article>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
-
-    init { this.articles = list }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val title: TextView = view.tv_article_title

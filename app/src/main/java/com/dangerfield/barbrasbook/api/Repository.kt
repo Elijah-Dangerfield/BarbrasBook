@@ -12,30 +12,22 @@ import retrofit2.Call
 class Repository(private val celebrity: String, application: Application) {
 
     private var articlesJob: CompletableJob? = null
-    private val API_KEY = "0cec05e663864f78867ef7af73988cc2"
-    private val articleLoadingStatus = MutableLiveData<LoadingStatus>()
-    private val articles = MutableLiveData<List<Article>>()
+    private val apiKey = "0cec05e663864f78867ef7af73988cc2"
+    private val articleFeed = MutableLiveData<Resource<List<Article>>>()
     private val db = ArticlesDatabase(application)
-
-
-    /**
-     * returns the current loading status of the request to get articles
-     * used to help view display loading icons
-     */
-    fun getArticleLoadingStatus(): MutableLiveData<LoadingStatus> = articleLoadingStatus
 
     /***
      * fetches celebrity articles from
      * @Input: whether or not the request is for a refresh of data
      * @output new celebrity articles from api
      */
-    fun getLatest(refreshing: Boolean = false): MutableLiveData<List<Article>> {
-        articleLoadingStatus.value =
-            if(refreshing)LoadingStatus.REFRESHING else LoadingStatus.LOADING
+    fun getLatest(refreshing: Boolean = false): MutableLiveData<Resource<List<Article>>> {
+
+        articleFeed.value = Resource.Loading(refreshing=refreshing)
 
         if(Connectivity.isOnline) getFromApi() else getFromDatabase()
 
-        return articles
+        return articleFeed
     }
 
     private fun getFromApi() {
@@ -46,7 +38,7 @@ class Repository(private val celebrity: String, application: Application) {
         articlesJob?.let {runningJob ->
             //launched with job scope to make task cancelable from viewmodel
             CoroutineScope(IO + runningJob).launch {
-                val call = RetrofitBuilder.apiService.getLatest(celebrity, API_KEY)
+                val call = RetrofitBuilder.apiService.getLatest(celebrity, apiKey)
                 call.enqueue(object: retrofit2.Callback<Response> {
 
                     override fun onFailure(call: Call<Response>, t: Throwable) {
@@ -57,11 +49,9 @@ class Repository(private val celebrity: String, application: Application) {
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
                         Log.d("API","GOT articles from API")
 
-                        articles.value = response.body()?.articles
+                        articleFeed.postValue(Resource.Success(data = response.body()?.articles ?: listOf()))
                         writeToDataBase(response.body()?.articles)
-                        articles.postValue(response.body()?.articles)
                         runningJob.complete()
-                        articleLoadingStatus.postValue(LoadingStatus.LOADED)
                     }
                 })
             }
@@ -69,7 +59,7 @@ class Repository(private val celebrity: String, application: Application) {
     }
 
     private fun writeToDataBase(articles: List<Article>?) {
-        Log.d("API","Writing to database with \n\n\n\n $articles")
+        Log.d("API","Writing to database with ${articles?.size ?: 0} articles")
 
         articlesJob = Job()
 
@@ -86,9 +76,7 @@ class Repository(private val celebrity: String, application: Application) {
 
         articlesJob?.let {runningJob ->
             CoroutineScope(IO + runningJob).launch {
-                articles.postValue( db.articleDao().getAll())
-                //loading set to failed to let view know that the network request did not go through
-                articleLoadingStatus.postValue(LoadingStatus.FAILED)
+                articleFeed.postValue(Resource.Error(data = db.articleDao().getAll(), message = "Could not load new articles"))
                 Log.d("API","GOT articles from DB")
                 runningJob.complete()
             }

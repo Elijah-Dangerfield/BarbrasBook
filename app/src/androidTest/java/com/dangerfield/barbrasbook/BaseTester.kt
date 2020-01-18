@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import com.dangerfield.barbrasbook.view.latest.NewsAdapter
+import com.dangerfield.barbrasbook.ui.articleFeed.NewsAdapter
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
