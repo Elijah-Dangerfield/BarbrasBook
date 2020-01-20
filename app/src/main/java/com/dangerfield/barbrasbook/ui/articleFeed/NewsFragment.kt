@@ -51,19 +51,10 @@ class NewsFragment : Fragment() {
 
             swipe_refresh_layout.isRefreshing = (response is Resource.Loading)
             when(response) {
-                is Resource.Success -> {
-                    Log.d("Elijah", "GOT SUCCESS IN VIEW")
-
-                    adapter?.articles = response.data ?: listOf()
-                }
-                is Resource.Loading -> {
-                    Log.d("Elijah", "GOT LOADING IN VIEW")
-
+                is Resource.Success, is Resource.Loading -> {
                     adapter?.articles = response.data ?: listOf()
                 }
                 is Resource.Error ->{
-                    Log.d("Elijah", "GOT ERROR IN VIEW")
-
                     Toast.makeText(context, response.message ,Toast.LENGTH_LONG).show()
                     adapter?.articles = response.data ?: listOf()
                 }

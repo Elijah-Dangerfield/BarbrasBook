@@ -15,7 +15,6 @@ class Repository(private val celebrity: String, application: Application) {
     private var articlesJob: CompletableJob? = null
     private val apiKey = "0cec05e663864f78867ef7af73988cc2"
     private val db = ArticlesDatabase(application)
-
     private val articleFeedResource = object : NetworkBoundResource<List<Article>>() {
         override fun saveCallResult(item: List<Article>) {
             writeToDataBase(item)
@@ -35,14 +34,14 @@ class Repository(private val celebrity: String, application: Application) {
     }
 
 
+    /**
+     * Builds article network bound resource and returns live data `result` variable
+     */
     fun getArticles() : LiveData<Resource<List<Article>>> {
         return articleFeedResource.build().asLiveData()
     }
 
-
     private fun getFromApi(): LiveData<ApiResponse<List<Article>>> {
-        Log.d("Elijah","Getting articles from API")
-
         articlesJob = Job()
         val result = MutableLiveData<ApiResponse<List<Article>>>()
 
@@ -63,7 +62,6 @@ class Repository(private val celebrity: String, application: Application) {
                     }
 
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
-                        Log.d("Elijah","GOT articles from API")
                         if(response.body()?.totalResults == 0){
                             result.postValue( ApiResponse.Empty())
                         }else{
@@ -78,8 +76,6 @@ class Repository(private val celebrity: String, application: Application) {
     }
 
     private fun writeToDataBase(articles: List<Article>?) {
-        Log.d("Elijah","Writing to database with ${articles?.size ?: 0} articles")
-
         articlesJob = Job()
 
         articlesJob?.let {runningJob ->
