@@ -2,7 +2,7 @@
 
 ## Welcome!
 
-### This application was built as part of my hiring process at Takl On-Demand Services as well as an exploration of mordern Android practices. I used [this](newsapi.org) api in order to pull news articles on Barbra Streisand for everyone to enjoy :)
+#### This application was built as part of my hiring process at Takl On-Demand Services as well as an exploration of mordern Android practices. I used [this](newsapi.org) api in order to pull news articles on Barbra Streisand for everyone to enjoy :)
 
 ![](https://firebasestorage.googleapis.com/v0/b/github-images.appspot.com/o/barbs.png?alt=media&token=7da1f306-e44f-42a9-acd0-81bb508c5f40)
 
@@ -25,12 +25,18 @@ This holder contains a helper class that lets me resize text views as well as co
 ### ui/
 Contains all views(fragments) paired with view models
 
+
+
+
 ## Tech Stack
-Jetpack Components: navigation, room database, live data
-Retrofit (networking library)
-Kotlin 
-Koin (dependency injection)
-lottie (animation library)
+Jetpack Components: navigation, room database, live data  <br />
+Retrofit (networking library) <br />
+Kotlin <br />
+Koin (dependency injection) <br />
+lottie (animation library) <br />
+
+
+
 
 ## Things of note
 The main recycler view contains a swipe down to refresh feature  <br />
