@@ -1,5 +1,6 @@
 package com.dangerfield.barbrasbook.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dangerfield.barbrasbook.model.Article
 
@@ -10,7 +11,7 @@ interface ArticlesDao {
      * returns all articles in table
      */
     @Query("SELECT * from articleDataTable")
-    fun getAll(): List<Article>
+    fun getAll(): LiveData<List<Article>>
 
     /**
      * inserts all passed articles into database

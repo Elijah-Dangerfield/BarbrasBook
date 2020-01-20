@@ -56,14 +56,6 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    <ProgressBar
-        android:id="@+id/pb_latest"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="invisible" />
-
     <TextView
         android:id="@+id/tv_loading_error"
         android:layout_width="wrap_content"
