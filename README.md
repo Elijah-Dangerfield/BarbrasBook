@@ -2,6 +2,8 @@
 
 ## Welcome!
 
+### This application was built as part of my hiring process at Takl On-Demand Services as well as an exploration of mordern Android practices
+
 ![](https://firebasestorage.googleapis.com/v0/b/github-images.appspot.com/o/barbs.png?alt=media&token=7da1f306-e44f-42a9-acd0-81bb508c5f40)
 
 ## Architecture
