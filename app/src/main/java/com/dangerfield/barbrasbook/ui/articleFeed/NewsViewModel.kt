@@ -1,5 +1,6 @@
 package com.dangerfield.barbrasbook.ui.articleFeed
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dangerfield.barbrasbook.model.Article
@@ -20,16 +21,16 @@ class NewsViewModel(private val repository: Repository): ViewModel() {
      * sets live data's variable
      */
     fun refreshArticles() {
-        latestArticles = repository.getArticleFeed(refreshing = true)
+        latestArticles = repository.getArticles() as MutableLiveData<Resource<List<Article>>>
     }
 
     /**
      * Retrives new articles from repository if
      * articles data is empty, otherwise returns the stored value
      */
-    fun getLatestArticles() : MutableLiveData<Resource<List<Article>>> {
+    fun getLatestArticles() : LiveData<Resource<List<Article>>> {
         if(latestArticles.value?.data.isNullOrEmpty()) {
-            latestArticles = repository.getArticleFeed()
+            latestArticles = repository.getArticles() as MutableLiveData<Resource<List<Article>>>
         }
         return latestArticles
     }

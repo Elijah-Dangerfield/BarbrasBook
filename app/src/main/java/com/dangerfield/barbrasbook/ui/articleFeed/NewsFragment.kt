@@ -1,6 +1,7 @@
 package com.dangerfield.barbrasbook.ui.articleFeed
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ class NewsFragment : Fragment() {
     private val newsViewModel : NewsViewModel by  viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
-        = inflater.inflate(R.layout.fragment_news, container, false)!!
+           = inflater.inflate(R.layout.fragment_news, container, false)!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,11 +48,25 @@ class NewsFragment : Fragment() {
     private fun setupViewModel() {
 
         newsViewModel.getLatestArticles().observe(viewLifecycleOwner, Observer {response ->
-            pb_latest.showIf(response is Resource.Loading)
-            swipe_refresh_layout.isRefreshing = (response is Resource.Loading && response.refreshing)
+
+            swipe_refresh_layout.isRefreshing = (response is Resource.Loading)
             when(response) {
-                is Resource.Success -> adapter?.articles = response.data ?: listOf()
-                is Resource.Error -> Toast.makeText(context, response.message ,Toast.LENGTH_LONG).show()
+                is Resource.Success -> {
+                    Log.d("Elijah", "GOT SUCCESS IN VIEW")
+
+                    adapter?.articles = response.data ?: listOf()
+                }
+                is Resource.Loading -> {
+                    Log.d("Elijah", "GOT LOADING IN VIEW")
+
+                    adapter?.articles = response.data ?: listOf()
+                }
+                is Resource.Error ->{
+                    Log.d("Elijah", "GOT ERROR IN VIEW")
+
+                    Toast.makeText(context, response.message ,Toast.LENGTH_LONG).show()
+                    adapter?.articles = response.data ?: listOf()
+                }
             }
         })
     }

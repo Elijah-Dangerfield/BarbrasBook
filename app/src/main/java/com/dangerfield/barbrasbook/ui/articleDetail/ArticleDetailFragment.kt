@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.Glide
 import com.dangerfield.barbrasbook.R
 import com.dangerfield.barbrasbook.model.Article
@@ -38,6 +40,7 @@ class ArticleDetailFragment : Fragment() {
 
         configureToolBar()
         btn_heart.setOnClickListener {playAnimation()}
+
     }
 
     private fun configureToolBar() {
