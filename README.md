@@ -4,6 +4,8 @@
 
 #### This application was built as part of my hiring process at Takl On-Demand Services as well as an exploration of mordern Android practices. I used [this](newsapi.org) api in order to pull news articles on Barbra Streisand for everyone to enjoy :)
 
+I also wrote a small article about how to emulate the iOS "prefersBigTitles" attribute as I did in this app. You can find that [here](https://medium.com/better-programming/how-to-emulate-ios-prefersbigtitles-in-android-36c24448f5ff)
+
 ![](https://firebasestorage.googleapis.com/v0/b/github-images.appspot.com/o/barbs.png?alt=media&token=7da1f306-e44f-42a9-acd0-81bb508c5f40)
 
 ## Architecture
